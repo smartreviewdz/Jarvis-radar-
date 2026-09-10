@@ -1,0 +1,2835 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="candy">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ff77b0">
+<title>Ma Semaine de Championne ⭐</title>
+<style>
+/* =========================================================================
+   0. RESET & BASE
+   ========================================================================= */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { height: 100%; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: var(--font);
+  color: var(--ink);
+  background:
+    radial-gradient(1100px 620px at 8% -12%, var(--bg-a), transparent 62%),
+    radial-gradient(900px 700px at 112% 6%, var(--bg-b), transparent 58%),
+    radial-gradient(900px 900px at 50% 118%, var(--bg-c), transparent 62%),
+    var(--bg-a);
+  background-attachment: fixed;
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition: background .5s ease, color .3s ease;
+  overscroll-behavior-y: none;
+}
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; border: none; background: none; }
+h1,h2,h3,h4,p { margin: 0; }
+ul { margin: 0; padding: 0; list-style: none; }
+:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; border-radius: 8px; }
+
+/* =========================================================================
+   1. THEMES
+   ========================================================================= */
+:root {
+  --font: ui-rounded, "SF Pro Rounded", "Segoe UI Variable", system-ui,
+          -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --r-xl: 30px;
+  --r-lg: 22px;
+  --r-md: 15px;
+  --r-sm: 10px;
+  --sh: 0 14px 34px rgba(80, 50, 120, .14);
+  --sh-sm: 0 5px 16px rgba(80, 50, 120, .10);
+  --sh-in: inset 0 -3px 0 rgba(0,0,0,.06);
+  --ease: cubic-bezier(.22, 1, .36, 1);
+}
+html[data-theme="candy"] {
+  --bg-a:#ffe6f2; --bg-b:#e6ecff; --bg-c:#fff4dd;
+  --card:#ffffff; --card-2:#fdf7ff; --ink:#3b2a4f; --muted:#8a7aa6;
+  --line:#f1e8fb; --primary:#ff77b0; --primary-2:#9d7bff;
+  --accent:#ffc93c; --good:#43d17c; --bad:#ff7d92; --on-primary:#fff;
+  --glow: 0 0 0 6px rgba(255,119,176,.16);
+}
+html[data-theme="ocean"] {
+  --bg-a:#dff3ff; --bg-b:#e4f8f0; --bg-c:#e9efff;
+  --card:#ffffff; --card-2:#f5fbff; --ink:#123a4d; --muted:#5f8798;
+  --line:#e2f0f8; --primary:#1fb6d1; --primary-2:#4a8dff;
+  --accent:#ffd166; --good:#2ecc8f; --bad:#ff7a8a; --on-primary:#fff;
+  --glow: 0 0 0 6px rgba(31,182,209,.16);
+}
+html[data-theme="forest"] {
+  --bg-a:#e6f7e9; --bg-b:#f2fbe6; --bg-c:#e2f3ef;
+  --card:#ffffff; --card-2:#f6fcf5; --ink:#22402b; --muted:#6b8a72;
+  --line:#e6f2e6; --primary:#3fae6a; --primary-2:#7fc95c;
+  --accent:#ffcb47; --good:#38c172; --bad:#ef6b6b; --on-primary:#fff;
+  --glow: 0 0 0 6px rgba(63,174,106,.16);
+}
+html[data-theme="night"] {
+  --bg-a:#191531; --bg-b:#221c3d; --bg-c:#2a1f3a;
+  --card:#2b2444; --card-2:#342b52; --ink:#f3edff; --muted:#a99fc7;
+  --line:#3d3459; --primary:#ff86c0; --primary-2:#a98bff;
+  --accent:#ffd166; --good:#4ade80; --bad:#ff8095; --on-primary:#2a1f3a;
+  --glow: 0 0 0 6px rgba(255,134,192,.18);
+  --sh: 0 14px 34px rgba(0,0,0,.35);
+  --sh-sm: 0 5px 16px rgba(0,0,0,.28);
+}
+
+/* =========================================================================
+   2. LAYOUT
+   ========================================================================= */
+.app {
+  max-width: 580px;
+  margin: 0 auto;
+  padding: 14px 16px 120px;
+  position: relative;
+  z-index: 2;
+}
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 6px 2px 12px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-weight: 800;
+  font-size: 17px;
+  letter-spacing: -.2px;
+}
+.brand-ico {
+  display: grid;
+  place-items: center;
+  width: 34px; height: 34px;
+  border-radius: 12px;
+  background: linear-gradient(140deg, var(--primary), var(--primary-2));
+  color: #fff;
+  font-size: 17px;
+  box-shadow: var(--sh-sm);
+}
+.top-actions { display: flex; gap: 8px; }
+.icon-btn {
+  width: 40px; height: 40px;
+  border-radius: 14px;
+  background: var(--card);
+  box-shadow: var(--sh-sm);
+  display: grid; place-items: center;
+  font-size: 18px;
+  transition: transform .18s var(--ease), box-shadow .18s;
+}
+.icon-btn:active { transform: scale(.92); }
+
+/* =========================================================================
+   3. CARDS
+   ========================================================================= */
+.card {
+  background: var(--card);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh);
+  padding: 18px;
+  margin-bottom: 14px;
+  border: 1px solid var(--line);
+}
+.card.tight { padding: 14px; }
+.card-title {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: .2px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.card-title .spacer { flex: 1; }
+.muted { color: var(--muted); }
+.small { font-size: 13px; }
+.tiny { font-size: 11.5px; }
+.center { text-align: center; }
+.row { display: flex; align-items: center; gap: 10px; }
+.row.wrap { flex-wrap: wrap; }
+.grow { flex: 1; }
+
+/* =========================================================================
+   4. HERO / TODAY HEADER
+   ========================================================================= */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(150deg, var(--primary), var(--primary-2));
+  color: #fff;
+  border-radius: var(--r-xl);
+  padding: 20px;
+  box-shadow: 0 18px 40px rgba(120, 70, 180, .28);
+  margin-bottom: 14px;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: -40% -20% auto auto;
+  width: 260px; height: 260px;
+  background: radial-gradient(circle, rgba(255,255,255,.32), transparent 65%);
+  pointer-events: none;
+}
+.hero-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+.avatar {
+  width: 58px; height: 58px;
+  border-radius: 20px;
+  background: rgba(255,255,255,.22);
+  display: grid; place-items: center;
+  font-size: 30px;
+  backdrop-filter: blur(6px);
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,.35);
+  flex: none;
+}
+.hello { font-size: 19px; font-weight: 800; line-height: 1.15; }
+.hello-sub { font-size: 12.5px; opacity: .88; margin-top: 3px; text-transform: capitalize; }
+.points-pill {
+  margin-left: auto;
+  background: rgba(255,255,255,.22);
+  border-radius: 999px;
+  padding: 8px 13px;
+  font-weight: 800;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  backdrop-filter: blur(6px);
+  white-space: nowrap;
+}
+.hero-body {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 18px;
+  position: relative;
+  z-index: 1;
+}
+.ring-wrap { position: relative; width: 118px; height: 118px; flex: none; }
+.ring { width: 118px; height: 118px; transform: rotate(-90deg); }
+.ring-bg { fill: none; stroke: rgba(255,255,255,.25); stroke-width: 11; }
+.ring-fg {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 11;
+  stroke-linecap: round;
+  transition: stroke-dashoffset .7s var(--ease);
+  filter: drop-shadow(0 0 6px rgba(255,255,255,.55));
+}
+.ring-label {
+  position: absolute; inset: 0;
+  display: grid; place-content: center;
+  text-align: center;
+  line-height: 1;
+}
+.ring-label b { font-size: 30px; font-weight: 900; }
+.ring-label span { font-size: 14px; opacity: .85; font-weight: 700; }
+.hero-stats { flex: 1; display: flex; flex-direction: column; gap: 9px; }
+.hstat {
+  display: flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,.16);
+  border-radius: 14px;
+  padding: 9px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  backdrop-filter: blur(4px);
+}
+.hstat .big { font-size: 15px; font-weight: 900; }
+
+/* =========================================================================
+   5. PROGRESS BARS
+   ========================================================================= */
+.bar {
+  height: 13px;
+  border-radius: 999px;
+  background: var(--line);
+  overflow: hidden;
+  position: relative;
+}
+.bar > i {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--primary), var(--primary-2));
+  transition: width .7s var(--ease);
+  box-shadow: 0 0 12px rgba(255,119,176,.5);
+}
+.bar.gold > i { background: linear-gradient(90deg, #ffd166, #ffa931); box-shadow: 0 0 12px rgba(255,193,60,.6); }
+.bar.green > i { background: linear-gradient(90deg, #4ade80, #22c55e); box-shadow: 0 0 12px rgba(74,222,128,.55); }
+.bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+/* =========================================================================
+   6. TASK LIST
+   ========================================================================= */
+.task {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  width: 100%;
+  text-align: left;
+  padding: 13px 14px;
+  border-radius: var(--r-md);
+  background: var(--card-2);
+  border: 1.5px solid var(--line);
+  margin-bottom: 9px;
+  transition: transform .16s var(--ease), background .25s, border-color .25s, box-shadow .25s;
+  position: relative;
+  overflow: hidden;
+}
+.task:active { transform: scale(.978); }
+.task:last-child { margin-bottom: 0; }
+.task .t-icon {
+  width: 42px; height: 42px;
+  border-radius: 13px;
+  display: grid; place-items: center;
+  font-size: 21px;
+  background: var(--card);
+  box-shadow: var(--sh-sm);
+  flex: none;
+}
+.task .t-body { flex: 1; min-width: 0; }
+.task .t-label {
+  font-weight: 800;
+  font-size: 14.5px;
+  display: block;
+  line-height: 1.25;
+}
+.task .t-meta {
+  font-size: 11.5px;
+  color: var(--muted);
+  font-weight: 600;
+  margin-top: 3px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.task .t-check {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  border: 2.5px solid var(--line);
+  display: grid; place-items: center;
+  font-size: 15px;
+  color: transparent;
+  flex: none;
+  transition: all .25s var(--ease);
+  background: var(--card);
+}
+.task.done {
+  background: linear-gradient(100deg, rgba(67,209,124,.14), rgba(67,209,124,.05));
+  border-color: rgba(67,209,124,.45);
+}
+.task.done .t-label { text-decoration: line-through; text-decoration-thickness: 2px; opacity: .62; }
+.task.done .t-check {
+  background: var(--good);
+  border-color: var(--good);
+  color: #fff;
+  transform: scale(1.06);
+}
+.task.running {
+  border-color: var(--accent);
+  background: linear-gradient(100deg, rgba(255,201,60,.18), rgba(255,201,60,.05));
+  animation: pulse 1.6s infinite;
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,201,60,.5); }
+  50%      { box-shadow: 0 0 0 8px rgba(255,201,60,0); }
+}
+.task .t-timer {
+  font-variant-numeric: tabular-nums;
+  font-weight: 900;
+  font-size: 15px;
+  color: var(--ink);
+  background: var(--card);
+  border-radius: 9px;
+  padding: 4px 9px;
+  box-shadow: var(--sh-sm);
+}
+.task.over .t-timer { color: var(--bad); }
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 10.5px;
+  font-weight: 800;
+  padding: 2.5px 7px;
+  border-radius: 999px;
+  background: var(--line);
+  color: var(--muted);
+}
+.badge.pts { background: rgba(157,123,255,.16); color: var(--primary-2); }
+.badge.bonus { background: rgba(255,201,60,.24); color: #b57f00; }
+.badge.good { background: rgba(67,209,124,.18); color: #1c8a4c; }
+
+/* =========================================================================
+   7. WEEK / DAY GRID
+   ========================================================================= */
+.week-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 7px;
+}
+.day-cell {
+  border-radius: var(--r-md);
+  background: var(--card-2);
+  border: 1.5px solid var(--line);
+  padding: 9px 3px 8px;
+  text-align: center;
+  transition: transform .18s var(--ease), background .3s, border-color .3s;
+  position: relative;
+}
+.day-cell:active { transform: scale(.94); }
+.day-cell .dname {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  color: var(--muted);
+}
+.day-cell .dnum {
+  font-size: 15px;
+  font-weight: 900;
+  margin: 3px 0 5px;
+}
+.day-cell .dstar { font-size: 16px; line-height: 1; height: 18px; }
+.day-cell.perfect {
+  background: linear-gradient(160deg, rgba(255,201,60,.28), rgba(255,201,60,.10));
+  border-color: rgba(255,170,0,.5);
+}
+.day-cell.partial { border-color: rgba(157,123,255,.45); background: rgba(157,123,255,.10); }
+.day-cell.today { box-shadow: 0 0 0 2.5px var(--primary); }
+.day-cell.future { opacity: .48; }
+.day-cell .ddot {
+  position: absolute; top: 5px; right: 6px;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--primary-2);
+}
+
+/* =========================================================================
+   8. MONTH CALENDAR
+   ========================================================================= */
+.cal {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+.cal .wd {
+  text-align: center;
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--muted);
+  padding: 4px 0 6px;
+  text-transform: uppercase;
+}
+.cal .cell {
+  aspect-ratio: 1 / 1;
+  border-radius: 11px;
+  display: grid;
+  place-items: center;
+  font-size: 12.5px;
+  font-weight: 700;
+  background: var(--card-2);
+  border: 1.5px solid var(--line);
+  position: relative;
+  transition: transform .16s var(--ease);
+}
+.cal .cell:active { transform: scale(.9); }
+.cal .cell.empty { background: transparent; border-color: transparent; }
+.cal .cell.perfect {
+  background: linear-gradient(150deg, #ffd166, #ffb020);
+  border-color: #ffb020;
+  color: #6b4200;
+  font-weight: 900;
+}
+.cal .cell.partial { background: rgba(157,123,255,.16); border-color: rgba(157,123,255,.4); }
+.cal .cell.today { box-shadow: 0 0 0 2.5px var(--primary); }
+.cal .cell.future { opacity: .4; }
+
+/* =========================================================================
+   9. REWARD CARDS
+   ========================================================================= */
+.reward {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+  border-radius: var(--r-lg);
+  background: var(--card-2);
+  border: 1.5px solid var(--line);
+  margin-bottom: 11px;
+}
+.reward.unlocked {
+  background: linear-gradient(120deg, rgba(255,201,60,.25), rgba(255,119,176,.14));
+  border-color: rgba(255,170,0,.55);
+  animation: glowGold 2.6s ease-in-out infinite;
+}
+@keyframes glowGold {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,193,60,.35); }
+  50%      { box-shadow: 0 0 0 12px rgba(255,193,60,0); }
+}
+.reward .r-icon {
+  width: 52px; height: 52px;
+  border-radius: 16px;
+  display: grid; place-items: center;
+  font-size: 27px;
+  background: var(--card);
+  box-shadow: var(--sh-sm);
+  flex: none;
+}
+.reward.locked .r-icon { filter: grayscale(.65); opacity: .7; }
+.reward .r-body { flex: 1; min-width: 0; }
+.reward .r-name { font-weight: 800; font-size: 15px; }
+.reward .r-desc { font-size: 12px; color: var(--muted); font-weight: 600; margin-top: 3px; }
+
+/* =========================================================================
+   10. BUTTONS
+   ========================================================================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 20px;
+  border-radius: 15px;
+  font-weight: 800;
+  font-size: 14.5px;
+  background: var(--card);
+  color: var(--ink);
+  box-shadow: var(--sh-sm);
+  transition: transform .16s var(--ease), filter .2s, box-shadow .2s;
+  border: 1.5px solid var(--line);
+}
+.btn:active { transform: scale(.95); }
+.btn:disabled { opacity: .45; cursor: not-allowed; transform: none; }
+.btn.primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 10px 24px rgba(160,90,220,.35);
+}
+.btn.gold {
+  background: linear-gradient(135deg, #ffd166, #ffa931);
+  color: #6b4200;
+  border-color: transparent;
+  box-shadow: 0 10px 24px rgba(255,170,40,.4);
+}
+.btn.ghost { background: transparent; box-shadow: none; border-color: var(--line); }
+.btn.danger { background: rgba(255,125,146,.14); color: var(--bad); border-color: rgba(255,125,146,.35); }
+.btn.block { width: 100%; }
+.btn.sm { padding: 9px 14px; font-size: 13px; border-radius: 12px; }
+.btn.xs { padding: 6px 10px; font-size: 12px; border-radius: 10px; }
+
+/* =========================================================================
+   11. ACHIEVEMENTS
+   ========================================================================= */
+.ach-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: 10px;
+}
+.ach {
+  background: var(--card-2);
+  border: 1.5px solid var(--line);
+  border-radius: var(--r-md);
+  padding: 13px 8px 11px;
+  text-align: center;
+  transition: transform .2s var(--ease), filter .3s;
+}
+.ach.locked { filter: grayscale(1); opacity: .42; }
+.ach.unlocked { border-color: rgba(255,170,0,.5); background: linear-gradient(160deg, rgba(255,201,60,.18), transparent); }
+.ach .a-icon { font-size: 27px; line-height: 1; }
+.ach .a-name { font-size: 11px; font-weight: 800; margin-top: 7px; line-height: 1.25; }
+.ach .a-desc { font-size: 9.5px; color: var(--muted); margin-top: 3px; line-height: 1.3; font-weight: 600; }
+
+/* =========================================================================
+   12. TABS
+   ========================================================================= */
+.tabbar {
+  position: fixed;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  width: min(556px, calc(100% - 24px));
+  background: color-mix(in srgb, var(--card) 86%, transparent);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  box-shadow: var(--sh);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  padding: 7px;
+  z-index: 40;
+  padding-bottom: max(7px, env(safe-area-inset-bottom));
+}
+.tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 7px 2px 5px;
+  border-radius: 17px;
+  font-size: 9.5px;
+  font-weight: 800;
+  color: var(--muted);
+  transition: background .25s, color .25s, transform .18s var(--ease);
+  position: relative;
+}
+.tab .ti { font-size: 20px; line-height: 1; transition: transform .25s var(--ease); }
+.tab:active { transform: scale(.93); }
+.tab.active {
+  color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 13%, transparent);
+}
+.tab.active .ti { transform: translateY(-1px) scale(1.12); }
+.tab .dot {
+  position: absolute; top: 4px; right: 50%; margin-right: -16px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--bad);
+  box-shadow: 0 0 0 2px var(--card);
+}
+
+/* =========================================================================
+   13. MODAL & TOAST
+   ========================================================================= */
+.modal-root {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  padding: 22px;
+  background: rgba(30, 15, 50, .48);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .28s ease;
+}
+.modal-root.show { opacity: 1; pointer-events: auto; }
+.modal {
+  background: var(--card);
+  border-radius: var(--r-xl);
+  padding: 26px 22px 22px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 26px 60px rgba(40, 15, 70, .34);
+  text-align: center;
+  transform: scale(.86) translateY(14px);
+  transition: transform .34s var(--ease);
+  max-height: 86dvh;
+  overflow-y: auto;
+}
+.modal-root.show .modal { transform: scale(1) translateY(0); }
+.modal .m-icon { font-size: 62px; line-height: 1; margin-bottom: 8px; animation: popIn .55s var(--ease); }
+@keyframes popIn {
+  0% { transform: scale(.3) rotate(-14deg); opacity: 0; }
+  65% { transform: scale(1.15) rotate(5deg); }
+  100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+.modal h2 { font-size: 22px; font-weight: 900; margin-bottom: 8px; }
+.modal p { color: var(--muted); font-size: 14px; line-height: 1.5; font-weight: 600; }
+.modal .m-actions { display: flex; gap: 9px; margin-top: 20px; }
+.modal .m-actions .btn { flex: 1; }
+
+.toast-root {
+  position: fixed;
+  left: 50%;
+  top: 16px;
+  transform: translateX(-50%);
+  z-index: 120;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  pointer-events: none;
+  width: min(420px, calc(100% - 28px));
+}
+.toast {
+  background: var(--card);
+  color: var(--ink);
+  padding: 11px 17px;
+  border-radius: 999px;
+  box-shadow: var(--sh);
+  font-weight: 800;
+  font-size: 13.5px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1.5px solid var(--line);
+  animation: toastIn .38s var(--ease);
+  max-width: 100%;
+}
+.toast.out { animation: toastOut .3s ease forwards; }
+@keyframes toastIn {
+  from { transform: translateY(-24px) scale(.9); opacity: 0; }
+  to   { transform: translateY(0) scale(1); opacity: 1; }
+}
+@keyframes toastOut {
+  to { transform: translateY(-18px) scale(.94); opacity: 0; }
+}
+
+/* =========================================================================
+   14. FORMS
+   ========================================================================= */
+.field { margin-bottom: 13px; }
+.field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--muted);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+}
+.input, .select {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 13px;
+  border: 1.5px solid var(--line);
+  background: var(--card-2);
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--ink);
+  transition: border-color .2s, box-shadow .2s;
+  appearance: none;
+}
+.input:focus, .select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: var(--glow);
+}
+.select {
+  background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+                    linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+  background-position: calc(100% - 19px) 21px, calc(100% - 14px) 21px;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 36px;
+}
+.switch-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--line);
+}
+.switch-row:last-child { border-bottom: none; }
+.switch-row .sw-label { font-weight: 700; font-size: 14px; }
+.switch-row .sw-sub { font-size: 11.5px; color: var(--muted); margin-top: 2px; font-weight: 600; }
+.switch {
+  width: 50px; height: 30px;
+  border-radius: 999px;
+  background: var(--line);
+  position: relative;
+  transition: background .25s;
+  flex: none;
+}
+.switch::after {
+  content: "";
+  position: absolute;
+  top: 3px; left: 3px;
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,.2);
+  transition: transform .28s var(--ease);
+}
+.switch.on { background: var(--good); }
+.switch.on::after { transform: translateX(20px); }
+.avatar-picker {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.avatar-opt {
+  width: 46px; height: 46px;
+  border-radius: 15px;
+  font-size: 24px;
+  display: grid; place-items: center;
+  background: var(--card-2);
+  border: 2px solid var(--line);
+  transition: transform .18s var(--ease), border-color .2s;
+}
+.avatar-opt:active { transform: scale(.9); }
+.avatar-opt.sel { border-color: var(--primary); background: color-mix(in srgb, var(--primary) 14%, transparent); }
+
+/* =========================================================================
+   15. MISC
+   ========================================================================= */
+.divider { height: 1px; background: var(--line); margin: 15px 0; }
+.empty-state {
+  text-align: center;
+  padding: 30px 16px;
+  color: var(--muted);
+}
+.empty-state .e-icon { font-size: 46px; margin-bottom: 10px; opacity: .8; }
+.empty-state .e-text { font-weight: 700; font-size: 14px; }
+.pill-row { display: flex; gap: 7px; flex-wrap: wrap; }
+.pill {
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: var(--card-2);
+  border: 1.5px solid var(--line);
+  font-size: 12.5px;
+  font-weight: 800;
+}
+.pill.on { background: color-mix(in srgb, var(--primary) 16%, transparent); border-color: var(--primary); color: var(--primary); }
+.level-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  border-radius: var(--r-md);
+  background: linear-gradient(120deg, rgba(157,123,255,.16), rgba(255,119,176,.12));
+  border: 1.5px solid rgba(157,123,255,.3);
+  margin-bottom: 12px;
+}
+.level-badge {
+  width: 52px; height: 52px;
+  border-radius: 17px;
+  background: linear-gradient(140deg, var(--primary), var(--primary-2));
+  color: #fff;
+  display: grid; place-items: center;
+  font-weight: 900;
+  font-size: 20px;
+  box-shadow: var(--sh-sm);
+  flex: none;
+}
+#fx {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 200;
+}
+.hidden { display: none !important; }
+.fade-in { animation: fadeIn .38s var(--ease); }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.stagger > * { animation: fadeIn .4s var(--ease) backwards; }
+.stagger > *:nth-child(1) { animation-delay: .02s; }
+.stagger > *:nth-child(2) { animation-delay: .05s; }
+.stagger > *:nth-child(3) { animation-delay: .08s; }
+.stagger > *:nth-child(4) { animation-delay: .11s; }
+.stagger > *:nth-child(5) { animation-delay: .14s; }
+.stagger > *:nth-child(6) { animation-delay: .17s; }
+.stagger > *:nth-child(7) { animation-delay: .20s; }
+.stagger > *:nth-child(8) { animation-delay: .23s; }
+.stagger > *:nth-child(9) { animation-delay: .26s; }
+.stagger > *:nth-child(10) { animation-delay: .29s; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-thumb { background: var(--line); border-radius: 99px; }
+
+/* =========================================================================
+   16. RESPONSIVE
+   ========================================================================= */
+@media (max-width: 380px) {
+  .app { padding-left: 12px; padding-right: 12px; }
+  .ring-wrap, .ring { width: 100px; height: 100px; }
+  .ring-label b { font-size: 25px; }
+  .avatar { width: 50px; height: 50px; font-size: 25px; }
+  .hello { font-size: 17px; }
+  .week-grid { gap: 5px; }
+  .day-cell .dnum { font-size: 13px; }
+}
+@media (min-width: 640px) {
+  .app { padding-top: 26px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ======================= CONFETTI CANVAS ======================= -->
+<canvas id="fx" aria-hidden="true"></canvas>
+
+<!-- ============================ APP ============================== -->
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-ico">⭐</span>
+      <span id="brand-name">Ma Semaine</span>
+    </div>
+    <div class="top-actions">
+      <button class="icon-btn" data-action="cycle-theme" title="Changer le thème" aria-label="Changer le thème">🎨</button>
+      <button class="icon-btn" data-action="toggle-lang" title="Changer la langue" aria-label="Changer la langue">🌍</button>
+    </div>
+  </header>
+  <main id="view"></main>
+</div>
+
+<!-- =========================== TAB BAR =========================== -->
+<nav class="tabbar" id="tabbar" aria-label="Navigation"></nav>
+
+<!-- ========================== OVERLAYS =========================== -->
+<div id="modal-root" class="modal-root" role="dialog" aria-modal="true"></div>
+<div id="toast-root" class="toast-root" aria-live="polite"></div>
+
+<script>
+"use strict";
+/* =========================================================================
+   KIDDO QUEST
+   A tiny gamified habit tracker for a kid.
+   Everything lives in localStorage. No network, no dependencies.
+   ========================================================================= */
+
+/* -------------------------------------------------------------------------
+   0. TINY UTILITIES
+   ------------------------------------------------------------------------- */
+const $  = (sel, root = document) => root.querySelector(sel);
+const $$ = (sel, root = document) => Array.prototype.slice.call(root.querySelectorAll(sel));
+
+const pad2 = n => String(n).padStart(2, "0");
+
+/** Local date -> "YYYY-MM-DD" */
+function isoOf(d) {
+  return d.getFullYear() + "-" + pad2(d.getMonth() + 1) + "-" + pad2(d.getDate());
+}
+/** "YYYY-MM-DD" -> Date (local midnight) */
+function fromKey(k) {
+  const p = k.split("-").map(Number);
+  return new Date(p[0], p[1] - 1, p[2]);
+}
+function todayKey() { return isoOf(new Date()); }
+function addDays(d, n) {
+  const x = new Date(d.getTime());
+  x.setDate(x.getDate() + n);
+  x.setHours(0, 0, 0, 0);
+  return x;
+}
+function startOfDay(d) {
+  const x = new Date(d.getTime());
+  x.setHours(0, 0, 0, 0);
+  return x;
+}
+/** Monday-based week start */
+function weekStart(d) {
+  const x = startOfDay(d);
+  const wd = (x.getDay() + 6) % 7; // Mon=0 ... Sun=6
+  x.setDate(x.getDate() - wd);
+  return x;
+}
+function weekKeyOf(d) { return isoOf(weekStart(d)); }
+function monthKeyOf(d) { return d.getFullYear() + "-" + pad2(d.getMonth() + 1); }
+
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const uid = () => Math.random().toString(36).slice(2, 9);
+
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, c => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  }[c]));
+}
+function fmtDuration(totalSec) {
+  const s = Math.max(0, Math.round(totalSec));
+  const m = Math.floor(s / 60);
+  const r = s % 60;
+  return m + ":" + pad2(r);
+}
+function fmtClock(ms) {
+  return fmtDuration(ms / 1000);
+}
+
+/* -------------------------------------------------------------------------
+   1. I18N
+   ------------------------------------------------------------------------- */
+const STR = {
+  fr: {
+    appName: "Ma Semaine de Championne",
+    hello: "Salut",
+    today: "Aujourd'hui",
+    week: "Semaine",
+    month: "Mois",
+    rewards: "Récompenses",
+    settings: "Réglages",
+    points: "points",
+    point: "point",
+    star: "étoile",
+    stars: "étoiles",
+    dayDone: "Tâches du jour",
+    noTasks: "Aucune tâche pour le moment.",
+    addTaskHint: "Ajoute des tâches dans les Réglages ⚙️",
+    perfectDay: "Journée parfaite !",
+    keepGoing: "Continue comme ça !",
+    tasksDone: "tâches faites",
+    streak: "jours d'affilée",
+    weekProgress: "Progression de la semaine",
+    monthProgress: "Objectif du mois",
+    perfectDays: "jours parfaits",
+    theBox: "La Boîte 🎁",
+    boxLocked: "Encore {n} jour(s) parfait(s) pour ouvrir la boîte !",
+    boxUnlocked: "La boîte est ouverte ! Tu l'as méritée !",
+    openBox: "Ouvrir la boîte !",
+    boxClaimed: "Boîte ouverte cette semaine 🎉",
+    monthlyPrize: "Gros cadeau du mois",
+    monthLocked: "Encore {n} jour(s) parfait(s) ce mois-ci.",
+    monthUnlocked: "Objectif du mois atteint !",
+    claim: "Récupérer",
+    claimed: "Récupéré !",
+    achievements: "Trophées",
+    shop: "Boutique à points",
+    buy: "Échanger",
+    notEnough: "Pas assez de points !",
+    level: "Niveau",
+    xpToNext: "{a} / {b} pts pour le niveau suivant",
+    totalPoints: "Points gagnés",
+    availablePoints: "Points à dépenser",
+    bestStreak: "Meilleure série",
+    perfectWeeks: "Semaines parfaites",
+    perfectMonths: "Mois parfaits",
+    newAchievement: "Nouveau trophée !",
+    language: "Langue",
+    theme: "Thème",
+    childName: "Prénom",
+    avatar: "Avatar",
+    wakeTarget: "Heure de lever",
+    wakeHint: "avant {t}",
+    weekGoal: "Objectif hebdo (jours parfaits)",
+    monthGoal: "Objectif mensuel (jours parfaits)",
+    sound: "Sons",
+    tasksList: "Liste des tâches",
+    addTask: "Ajouter une tâche",
+    taskName: "Nom de la tâche",
+    taskPoints: "Points",
+    taskKind: "Type",
+    kindCheck: "Case à cocher",
+    kindTimer: "Chrono (rapidité)",
+    targetMin: "Objectif (minutes)",
+    delete: "Supprimer",
+    save: "Enregistrer",
+    cancel: "Annuler",
+    close: "Fermer",
+    dataMgmt: "Données",
+    exportData: "Exporter (sauvegarde)",
+    importData: "Importer",
+    resetAll: "Tout effacer",
+    resetConfirm: "Tout effacer ? Cette action est définitive.",
+    yes: "Oui, tout effacer",
+    done: "Fait !",
+    undone: "Annulé",
+    earned: "+{n} points !",
+    bonus: "Bonus rapidité +1 ⚡",
+    dayPerfectToast: "Journée parfaite ! ⭐",
+    dayUnperfect: "Étoile retirée",
+    weekComplete: "Semaine parfaite ! 7/7 🎁",
+    monthComplete: "Mois parfait ! 🏆",
+    start: "Appuyer pour lancer le chrono",
+    running: "Chrono en cours… appuie pour arrêter",
+    tookTime: "en {t}",
+    target: "objectif {t}",
+    history: "Historique",
+    purchased: "Échange : {n} (-{c} pts)",
+    monday: "Lun", tuesday: "Mar", wednesday: "Mer", thursday: "Jeu",
+    friday: "Ven", saturday: "Sam", sunday: "Dim",
+    noData: "Rien ici pour l'instant",
+    tip1: "Astuce : coche chaque tâche dès que tu l'as finie !",
+    tip2: "7 jours parfaits = la boîte surprise 🎁",
+    tip3: "Tu peux échanger tes points dans la boutique 🛍️",
+    levelUp: "Niveau {n} ! 🎉",
+    welcomeTitle: "Bienvenue !",
+    welcomeText: "Prête à devenir une championne ? Coche tes tâches chaque jour pour gagner des points et des étoiles !",
+    letsGo: "C'est parti !",
+    todayIs: "Aujourd'hui",
+    bonusWord: "Rapide",
+    dayDetail: "Détail du jour",
+    tasksOf: "tâches",
+  },
+  en: {
+    appName: "My Champion Week",
+    hello: "Hi",
+    today: "Today",
+    week: "Week",
+    month: "Month",
+    rewards: "Rewards",
+    settings: "Settings",
+    points: "points",
+    point: "point",
+    star: "star",
+    stars: "stars",
+    dayDone: "Today's tasks",
+    noTasks: "No tasks yet.",
+    addTaskHint: "Add tasks in Settings ⚙️",
+    perfectDay: "Perfect day!",
+    keepGoing: "Keep it up!",
+    tasksDone: "tasks done",
+    streak: "day streak",
+    weekProgress: "Week progress",
+    monthProgress: "Monthly goal",
+    perfectDays: "perfect days",
+    theBox: "The Box 🎁",
+    boxLocked: "{n} more perfect day(s) to open the box!",
+    boxUnlocked: "The box is unlocked! You earned it!",
+    openBox: "Open the box!",
+    boxClaimed: "Box opened this week 🎉",
+    monthlyPrize: "Big monthly prize",
+    monthLocked: "{n} more perfect day(s) this month.",
+    monthUnlocked: "Monthly goal reached!",
+    claim: "Claim",
+    claimed: "Claimed!",
+    achievements: "Trophies",
+    shop: "Points shop",
+    buy: "Redeem",
+    notEnough: "Not enough points!",
+    level: "Level",
+    xpToNext: "{a} / {b} pts to next level",
+    totalPoints: "Points earned",
+    availablePoints: "Points to spend",
+    bestStreak: "Best streak",
+    perfectWeeks: "Perfect weeks",
+    perfectMonths: "Perfect months",
+    newAchievement: "New trophy!",
+    language: "Language",
+    theme: "Theme",
+    childName: "Name",
+    avatar: "Avatar",
+    wakeTarget: "Wake-up time",
+    wakeHint: "before {t}",
+    weekGoal: "Weekly goal (perfect days)",
+    monthGoal: "Monthly goal (perfect days)",
+    sound: "Sounds",
+    tasksList: "Task list",
+    addTask: "Add a task",
+    taskName: "Task name",
+    taskPoints: "Points",
+    taskKind: "Type",
+    kindCheck: "Checkbox",
+    kindTimer: "Timer (speed)",
+    targetMin: "Target (minutes)",
+    delete: "Delete",
+    save: "Save",
+    cancel: "Cancel",
+    close: "Close",
+    dataMgmt: "Data",
+    exportData: "Export (backup)",
+    importData: "Import",
+    resetAll: "Erase everything",
+    resetConfirm: "Erase everything? This cannot be undone.",
+    yes: "Yes, erase all",
+    done: "Done!",
+    undone: "Undone",
+    earned: "+{n} points!",
+    bonus: "Speed bonus +1 ⚡",
+    dayPerfectToast: "Perfect day! ⭐",
+    dayUnperfect: "Star removed",
+    weekComplete: "Perfect week! 7/7 🎁",
+    monthComplete: "Perfect month! 🏆",
+    start: "Tap to start the timer",
+    running: "Timer running… tap to stop",
+    tookTime: "in {t}",
+    target: "target {t}",
+    history: "History",
+    purchased: "Redeemed: {n} (-{c} pts)",
+    monday: "Mon", tuesday: "Tue", wednesday: "Wed", thursday: "Thu",
+    friday: "Fri", saturday: "Sat", sunday: "Sun",
+    noData: "Nothing here yet",
+    tip1: "Tip: check each task as soon as you finish it!",
+    tip2: "7 perfect days = the surprise box 🎁",
+    tip3: "You can spend your points in the shop 🛍️",
+    levelUp: "Level {n}! 🎉",
+    welcomeTitle: "Welcome!",
+    welcomeText: "Ready to become a champion? Check your tasks every day to earn points and stars!",
+    letsGo: "Let's go!",
+    todayIs: "Today",
+    bonusWord: "Speedy",
+    dayDetail: "Day details",
+    tasksOf: "tasks",
+  }
+};
+
+let LANG = "fr";
+function t(key, vars) {
+  let s = (STR[LANG] && STR[LANG][key]) || STR.fr[key] || key;
+  if (vars) {
+    Object.keys(vars).forEach(k => { s = s.replace(new RegExp("\\{" + k + "\\}", "g"), vars[k]); });
+  }
+  return s;
+}
+function L(obj) {
+  if (obj == null) return "";
+  if (typeof obj === "string") return obj;
+  return obj[LANG] || obj.fr || obj.en || "";
+}
+function localeCode() { return LANG === "fr" ? "fr-FR" : "en-US"; }
+function fmtLongDate(d) {
+  return d.toLocaleDateString(localeCode(), { weekday: "long", day: "numeric", month: "long" });
+}
+function fmtShortDate(d) {
+  return d.toLocaleDateString(localeCode(), { day: "numeric", month: "short" });
+}
+function weekdayShort(d) {
+  const names = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+  return t(names[d.getDay()]);
+}
+
+/* -------------------------------------------------------------------------
+   2. DEFAULT DATA
+   ------------------------------------------------------------------------- */
+const DEFAULT_TASKS = [
+  { id: "wake",    icon: "🌅", label: { fr: "Se lever tôt",           en: "Wake up early" },        points: 2, type: "check", active: true },
+  { id: "bed",     icon: "🛏️", label: { fr: "Faire son lit",          en: "Make the bed" },         points: 1, type: "check", active: true },
+  { id: "teeth",   icon: "🦷", label: { fr: "Se laver les dents",      en: "Brush teeth" },          points: 1, type: "check", active: true },
+  { id: "dress",   icon: "👕", label: { fr: "S'habiller toute seule",  en: "Get dressed alone" },    points: 1, type: "check", active: true },
+  { id: "brekky",  icon: "🍳", label: { fr: "Petit-déjeuner rapide",   en: "Quick breakfast" },      points: 2, type: "timer", target: 900, active: true },
+  { id: "bag",     icon: "🎒", label: { fr: "Préparer son sac",        en: "Pack the school bag" },  points: 1, type: "check", active: true },
+  { id: "homework",icon: "📚", label: { fr: "Faire ses devoirs",       en: "Do homework" },          points: 2, type: "check", active: true },
+  { id: "tidy",    icon: "🧸", label: { fr: "Ranger sa chambre",       en: "Tidy the room" },        points: 1, type: "check", active: true },
+  { id: "sleep",   icon: "🌙", label: { fr: "Au lit à l'heure",        en: "Bed on time" },          points: 2, type: "check", active: true }
+];
+
+const DEFAULT_SHOP = [
+  { id: "s1", icon: "🍦", label: { fr: "Une glace",            en: "An ice cream" },        cost: 60 },
+  { id: "s2", icon: "🎬", label: { fr: "Soirée film",          en: "Movie night" },         cost: 110 },
+  { id: "s3", icon: "🧸", label: { fr: "Un petit jouet",       en: "A small toy" },         cost: 220 },
+  { id: "s4", icon: "🎡", label: { fr: "Sortie parc d'attractions", en: "Theme park trip" }, cost: 520 }
+];
+
+const ACHIEVEMENTS = [
+  { id: "first_task",  icon: "🌟", name: { fr: "Premier pas",        en: "First step" },      desc: { fr: "Terminer 1 tâche",            en: "Finish 1 task" },              test: c => c.tasksDone >= 1 },
+  { id: "first_star",  icon: "⭐", name: { fr: "Première étoile",     en: "First star" },      desc: { fr: "1 journée parfaite",          en: "1 perfect day" },              test: c => c.perfectDays >= 1 },
+  { id: "star10",      icon: "✨", name: { fr: "10 étoiles",          en: "10 stars" },        desc: { fr: "10 journées parfaites",       en: "10 perfect days" },            test: c => c.perfectDays >= 10 },
+  { id: "star30",      icon: "🌠", name: { fr: "30 étoiles",          en: "30 stars" },        desc: { fr: "30 journées parfaites",       en: "30 perfect days" },            test: c => c.perfectDays >= 30 },
+  { id: "streak3",     icon: "🔥", name: { fr: "3 jours de feu",      en: "3-day fire" },      desc: { fr: "3 jours parfaits d'affilée",  en: "3 perfect days in a row" },    test: c => c.bestStreak >= 3 },
+  { id: "streak7",     icon: "🚀", name: { fr: "Semaine fusée",       en: "Rocket week" },     desc: { fr: "7 jours parfaits d'affilée",  en: "7 perfect days in a row" },    test: c => c.bestStreak >= 7 },
+  { id: "streak14",    icon: "🏅", name: { fr: "Deux semaines",       en: "Two weeks" },       desc: { fr: "14 jours d'affilée",          en: "14 days in a row" },           test: c => c.bestStreak >= 14 },
+  { id: "streak30",    icon: "👑", name: { fr: "Reine du réveil",     en: "Wake-up queen" },   desc: { fr: "30 jours d'affilée",          en: "30 days in a row" },           test: c => c.bestStreak >= 30 },
+  { id: "pts100",      icon: "💯", name: { fr: "100 points",          en: "100 points" },      desc: { fr: "Gagner 100 points",           en: "Earn 100 points" },            test: c => c.totalEarned >= 100 },
+  { id: "pts500",      icon: "💎", name: { fr: "500 points",          en: "500 points" },      desc: { fr: "Gagner 500 points",           en: "Earn 500 points" },            test: c => c.totalEarned >= 500 },
+  { id: "pts1000",     icon: "🌈", name: { fr: "1000 points",         en: "1000 points" },     desc: { fr: "Gagner 1000 points",          en: "Earn 1000 points" },           test: c => c.totalEarned >= 1000 },
+  { id: "early10",     icon: "🐓", name: { fr: "Petit coq",           en: "Early bird" },      desc: { fr: "10 levers avant l'heure",     en: "10 early wake-ups" },          test: c => c.earlyWakes >= 10 },
+  { id: "early30",     icon: "🌄", name: { fr: "Lève-tôt pro",        en: "Pro riser" },       desc: { fr: "30 levers avant l'heure",     en: "30 early wake-ups" },          test: c => c.earlyWakes >= 30 },
+  { id: "speed10",     icon: "⚡", name: { fr: "Éclair",              en: "Lightning" },       desc: { fr: "10 défis rapidité",           en: "10 speed challenges" },        test: c => c.timerBonuses >= 10 },
+  { id: "speed30",     icon: "🌀", name: { fr: "Turbo",               en: "Turbo" },           desc: { fr: "30 défis rapidité",           en: "30 speed challenges" },        test: c => c.timerBonuses >= 30 },
+  { id: "pweek1",      icon: "🎁", name: { fr: "Semaine parfaite",    en: "Perfect week" },    desc: { fr: "Une semaine 7/7",             en: "A 7/7 week" },                 test: c => c.perfectWeeks >= 1 },
+  { id: "pweek4",      icon: "🎊", name: { fr: "4 semaines parfaites",en: "4 perfect weeks" }, desc: { fr: "Quatre semaines 7/7",         en: "Four 7/7 weeks" },             test: c => c.perfectWeeks >= 4 },
+  { id: "pmonth1",     icon: "🏆", name: { fr: "Mois parfait",        en: "Perfect month" },   desc: { fr: "Un mois objectif atteint",    en: "A full monthly goal" },        test: c => c.perfectMonths >= 1 },
+  { id: "level5",      icon: "🧙", name: { fr: "Niveau 5",            en: "Level 5" },         desc: { fr: "Atteindre le niveau 5",       en: "Reach level 5" },              test: c => c.level >= 5 },
+  { id: "level10",     icon: "🐉", name: { fr: "Niveau 10",           en: "Level 10" },        desc: { fr: "Atteindre le niveau 10",      en: "Reach level 10" },             test: c => c.level >= 10 },
+  { id: "shop1",       icon: "🛍️", name: { fr: "Premier achat",       en: "First purchase" },  desc: { fr: "Échanger des points",         en: "Redeem points" },              test: c => c.purchases >= 1 }
+];
+
+const AVATARS = ["🦄", "🐱", "🐼", "🦊", "🐧", "🐨", "🦁", "🐸", "🐙", "🦋", "🌟", "🍓", "🚀", "🌈", "🐝", "🦖"];
+const THEMES = ["candy", "ocean", "forest", "night"];
+
+/* -------------------------------------------------------------------------
+   3. STATE
+   ------------------------------------------------------------------------- */
+const LS_KEY = "kiddo-quest-v1";
+
+function defaultState() {
+  return {
+    version: 1,
+    lang: "fr",
+    theme: "candy",
+    child: { name: "Championne", avatar: "🦄" },
+    settings: {
+      wakeTarget: "07:00",
+      weekGoal: 7,
+      monthGoal: 26,
+      sound: true
+    },
+    tasks: JSON.parse(JSON.stringify(DEFAULT_TASKS)),
+    shop: JSON.parse(JSON.stringify(DEFAULT_SHOP)),
+    days: {},         // "YYYY-MM-DD" -> { done: { taskId: {at, points, bonus, sec} } }
+    timers: {},       // taskId -> startedAt(ms)
+    weeks: {},        // mondayKey -> { claimed: true, at }
+    months: {},       // "YYYY-MM" -> { claimed: true, at }
+    achievements: {}, // id -> ISO date unlocked
+    spentPoints: 0,
+    purchases: [],    // {id, label, cost, at}
+    seenWelcome: false,
+    themeIndex: 0
+  };
+}
+
+let S = defaultState();
+
+function save() {
+  try {
+    localStorage.setItem(LS_KEY, JSON.stringify(S));
+  } catch (e) {
+    console.warn("Save failed", e);
+  }
+}
+
+function load() {
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if (!raw) return false;
+    const parsed = JSON.parse(raw);
+    S = migrate(parsed);
+    return true;
+  } catch (e) {
+    console.warn("Load failed", e);
+    return false;
+  }
+}
+
+function migrate(data) {
+  const base = defaultState();
+  const out = Object.assign({}, base, data || {});
+  out.child = Object.assign({}, base.child, (data && data.child) || {});
+  out.settings = Object.assign({}, base.settings, (data && data.settings) || {});
+  out.days = (data && data.days) || {};
+  out.timers = (data && data.timers) || {};
+  out.weeks = (data && data.weeks) || {};
+  out.months = (data && data.months) || {};
+  out.achievements = (data && data.achievements) || {};
+  out.purchases = (data && data.purchases) || [];
+  out.spentPoints = (data && data.spentPoints) || 0;
+  if (!Array.isArray(out.tasks) || !out.tasks.length) out.tasks = JSON.parse(JSON.stringify(DEFAULT_TASKS));
+  if (!Array.isArray(out.shop) || !out.shop.length) out.shop = JSON.parse(JSON.stringify(DEFAULT_SHOP));
+  // Clear stale timers (older than 3 hours)
+  const now = Date.now();
+  Object.keys(out.timers).forEach(k => {
+    if (now - out.timers[k] > 3 * 60 * 60 * 1000) delete out.timers[k];
+  });
+  return out;
+}
+
+/* -------------------------------------------------------------------------
+   4. DERIVED DATA HELPERS
+   ------------------------------------------------------------------------- */
+function activeTasks() {
+  return S.tasks.filter(x => x.active !== false);
+}
+function getDay(key, create) {
+  if (!S.days[key]) {
+    if (!create) return { done: {} };
+    S.days[key] = { done: {} };
+  }
+  return S.days[key];
+}
+function dayDoneCount(key) {
+  const d = S.days[key];
+  if (!d) return 0;
+  const ids = activeTasks().map(x => x.id);
+  return ids.filter(id => d.done[id]).length;
+}
+function dayEarned(key) {
+  const d = S.days[key];
+  if (!d) return 0;
+  return Object.keys(d.done).reduce((sum, id) => sum + (d.done[id].points || 0) + (d.done[id].bonus || 0), 0);
+}
+function isPerfect(key) {
+  const tasks = activeTasks();
+  if (!tasks.length) return false;
+  const d = S.days[key];
+  if (!d) return false;
+  return tasks.every(x => !!d.done[x.id]);
+}
+function totalEarned() {
+  return Object.keys(S.days).reduce((sum, k) => sum + dayEarned(k), 0);
+}
+function availablePoints() {
+  return Math.max(0, totalEarned() - S.spentPoints);
+}
+function levelInfo(pts) {
+  // xp needed for level L = 25 * (L-1)^2
+  let level = 1;
+  while (25 * level * level <= pts) level++;
+  const curBase = 25 * (level - 1) * (level - 1);
+  const nextBase = 25 * level * level;
+  const span = Math.max(1, nextBase - curBase);
+  const into = pts - curBase;
+  return {
+    level: level,
+    into: into,
+    span: span,
+    next: nextBase,
+    pct: clamp(into / span, 0, 1)
+  };
+}
+function currentStreak() {
+  let n = 0;
+  let d = startOfDay(new Date());
+  if (!isPerfect(isoOf(d))) d = addDays(d, -1);
+  let guard = 0;
+  while (isPerfect(isoOf(d)) && guard < 4000) {
+    n++;
+    d = addDays(d, -1);
+    guard++;
+  }
+  return n;
+}
+function bestStreak() {
+  const keys = Object.keys(S.days).filter(isPerfect).sort();
+  let best = 0, run = 0, prev = null;
+  keys.forEach(k => {
+    const d = fromKey(k);
+    if (prev && (d - prev) === 86400000) run++;
+    else run = 1;
+    prev = d;
+    if (run > best) best = run;
+  });
+  return best;
+}
+function weekPerfectCount(mondayKey) {
+  const monday = fromKey(mondayKey);
+  let n = 0;
+  for (let i = 0; i < 7; i++) {
+    if (isPerfect(isoOf(addDays(monday, i)))) n++;
+  }
+  return n;
+}
+function monthPerfectCount(year, month) {
+  const last = new Date(year, month + 1, 0).getDate();
+  let n = 0;
+  for (let i = 1; i <= last; i++) {
+    if (isPerfect(isoOf(new Date(year, month, i)))) n++;
+  }
+  return n;
+}
+function countPerfectWeeks() {
+  const weeks = {};
+  Object.keys(S.days).forEach(k => {
+    if (!isPerfect(k)) return;
+    weeks[weekKeyOf(fromKey(k))] = true;
+  });
+  let n = 0;
+  Object.keys(weeks).forEach(wk => {
+    if (weekPerfectCount(wk) >= 7) n++;
+  });
+  return n;
+}
+function countPerfectMonths() {
+  const months = {};
+  Object.keys(S.days).forEach(k => {
+    if (isPerfect(k)) months[monthKeyOf(fromKey(k))] = true;
+  });
+  let n = 0;
+  Object.keys(months).forEach(mk => {
+    const parts = mk.split("-").map(Number);
+    if (monthPerfectCount(parts[0], parts[1] - 1) >= S.settings.monthGoal) n++;
+  });
+  return n;
+}
+function countEarlyWakes() {
+  const target = S.settings.wakeTarget || "07:00";
+  let n = 0;
+  Object.keys(S.days).forEach(k => {
+    const entry = S.days[k].done && S.days[k].done["wake"];
+    if (!entry || !entry.at) return;
+    const d = new Date(entry.at);
+    const hhmm = pad2(d.getHours()) + ":" + pad2(d.getMinutes());
+    if (hhmm <= target) n++;
+  });
+  return n;
+}
+function countTimerBonuses() {
+  let n = 0;
+  Object.keys(S.days).forEach(k => {
+    const done = S.days[k].done || {};
+    Object.keys(done).forEach(id => { if ((done[id].bonus || 0) > 0) n++; });
+  });
+  return n;
+}
+function countTasksDone() {
+  let n = 0;
+  Object.keys(S.days).forEach(k => { n += Object.keys(S.days[k].done || {}).length; });
+  return n;
+}
+
+function buildContext() {
+  const earned = totalEarned();
+  return {
+    perfectDays: Object.keys(S.days).filter(isPerfect).length,
+    tasksDone: countTasksDone(),
+    bestStreak: bestStreak(),
+    currentStreak: currentStreak(),
+    totalEarned: earned,
+    level: levelInfo(earned).level,
+    earlyWakes: countEarlyWakes(),
+    timerBonuses: countTimerBonuses(),
+    perfectWeeks: countPerfectWeeks(),
+    perfectMonths: countPerfectMonths(),
+    purchases: S.purchases.length
+  };
+}
+
+/* -------------------------------------------------------------------------
+   5. SOUND (WebAudio, no assets)
+   ------------------------------------------------------------------------- */
+let audioCtx = null;
+function ensureAudio() {
+  if (!S.settings.sound) return null;
+  try {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === "suspended") audioCtx.resume();
+    return audioCtx;
+  } catch (e) { return null; }
+}
+function beep(freq, duration, type, gain) {
+  const ctx = ensureAudio();
+  if (!ctx) return;
+  const osc = ctx.createOscillator();
+  const g = ctx.createGain();
+  osc.type = type || "sine";
+  osc.frequency.value = freq;
+  g.gain.setValueAtTime(0.0001, ctx.currentTime);
+  g.gain.exponentialRampToValueAtTime(gain || 0.16, ctx.currentTime + 0.015);
+  g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
+  osc.connect(g);
+  g.connect(ctx.destination);
+  osc.start();
+  osc.stop(ctx.currentTime + duration + 0.03);
+}
+const SFX = {
+  check()   { beep(660, 0.10, "sine", 0.15); setTimeout(() => beep(990, 0.13, "sine", 0.13), 70); },
+  uncheck() { beep(330, 0.10, "sine", 0.10); },
+  star()    { [523, 659, 784, 1046].forEach((f, i) => setTimeout(() => beep(f, 0.17, "triangle", 0.15), i * 85)); },
+  reward()  { [523, 659, 784, 1046, 1318].forEach((f, i) => setTimeout(() => beep(f, 0.22, "triangle", 0.16), i * 110)); },
+  start()   { beep(880, 0.07, "square", 0.08); },
+  error()   { beep(180, 0.16, "sawtooth", 0.09); },
+  levelUp() { [659, 784, 988, 1318].forEach((f, i) => setTimeout(() => beep(f, 0.2, "sine", 0.16), i * 100)); }
+};
+
+/* -------------------------------------------------------------------------
+   6. CONFETTI
+   ------------------------------------------------------------------------- */
+const FX = (function () {
+  const canvas = document.getElementById("fx");
+  const ctx = canvas.getContext("2d");
+  let particles = [];
+  let rafId = null;
+  let dpr = 1;
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.floor(window.innerWidth * dpr);
+    canvas.height = Math.floor(window.innerHeight * dpr);
+    canvas.style.width = window.innerWidth + "px";
+    canvas.style.height = window.innerHeight + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  resize();
+  window.addEventListener("resize", resize);
+
+  const COLORS = ["#ff77b0", "#9d7bff", "#ffc93c", "#43d17c", "#4ac6ff", "#ff8a65", "#ffffff"];
+
+  function spawn(n, opts) {
+    opts = opts || {};
+    const w = window.innerWidth;
+    const originX = opts.x != null ? opts.x : w / 2;
+    const originY = opts.y != null ? opts.y : window.innerHeight * 0.32;
+    for (let i = 0; i < n; i++) {
+      const angle = (Math.random() * Math.PI * 2);
+      const speed = 3 + Math.random() * 9;
+      particles.push({
+        x: originX,
+        y: originY,
+        vx: Math.cos(angle) * speed * (opts.spread || 1),
+        vy: Math.sin(angle) * speed * (opts.spread || 1) - 4,
+        size: 5 + Math.random() * 8,
+        color: COLORS[(Math.random() * COLORS.length) | 0],
+        rot: Math.random() * Math.PI * 2,
+        vr: (Math.random() - 0.5) * 0.3,
+        life: 1,
+        decay: 0.008 + Math.random() * 0.008,
+        shape: Math.random() < 0.35 ? "circle" : "rect"
+      });
+    }
+    if (!rafId) rafId = requestAnimationFrame(loop);
+  }
+
+  function loop() {
+    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+      p.vy += 0.22;
+      p.vx *= 0.992;
+      p.x += p.vx;
+      p.y += p.vy;
+      p.rot += p.vr;
+      p.life -= p.decay;
+      if (p.life <= 0 || p.y > window.innerHeight + 60) {
+        particles.splice(i, 1);
+        continue;
+      }
+      ctx.save();
+      ctx.globalAlpha = Math.max(0, p.life);
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot);
+      ctx.fillStyle = p.color;
+      if (p.shape === "circle") {
+        ctx.beginPath();
+        ctx.arc(0, 0, p.size / 2, 0, Math.PI * 2);
+        ctx.fill();
+      } else {
+        ctx.fillRect(-p.size / 2, -p.size / 3, p.size, p.size * 0.66);
+      }
+      ctx.restore();
+    }
+    if (particles.length) {
+      rafId = requestAnimationFrame(loop);
+    } else {
+      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      rafId = null;
+    }
+  }
+
+  return {
+    burst(n, opts) { spawn(n || 80, opts || {}); },
+    big() {
+      spawn(120, { spread: 1.2 });
+      setTimeout(() => spawn(90, { x: window.innerWidth * 0.2, y: window.innerHeight * 0.25 }), 180);
+      setTimeout(() => spawn(90, { x: window.innerWidth * 0.8, y: window.innerHeight * 0.25 }), 340);
+    },
+    star(x, y) { spawn(28, { x: x, y: y, spread: 0.6 }); }
+  };
+})();
+
+/* -------------------------------------------------------------------------
+   7. TOASTS & MODALS
+   ------------------------------------------------------------------------- */
+function toast(msg, icon, ms) {
+  const root = $("#toast-root");
+  const el = document.createElement("div");
+  el.className = "toast";
+  el.innerHTML = (icon ? '<span>' + esc(icon) + "</span>" : "") + "<span>" + esc(msg) + "</span>";
+  root.appendChild(el);
+  setTimeout(() => {
+    el.classList.add("out");
+    setTimeout(() => el.remove(), 320);
+  }, ms || 2100);
+}
+
+function openModal(html, opts) {
+  opts = opts || {};
+  const root = $("#modal-root");
+  root.innerHTML = '<div class="modal">' + html + "</div>";
+  root.classList.add("show");
+  if (opts.onOpen) opts.onOpen(root);
+}
+function closeModal() {
+  const root = $("#modal-root");
+  root.classList.remove("show");
+  setTimeout(() => { root.innerHTML = ""; }, 300);
+}
+document.addEventListener("click", e => {
+  if (e.target.id === "modal-root") closeModal();
+});
+
+/* -------------------------------------------------------------------------
+   8. CORE ACTIONS
+   ------------------------------------------------------------------------- */
+function toggleTask(taskId, dayKey) {
+  const task = S.tasks.find(x => x.id === taskId);
+  if (!task) return;
+  const day = getDay(dayKey, true);
+  const key = dayKey || todayKey();
+  const wasPerfect = isPerfect(key);
+
+  if (day.done[taskId]) {
+    delete day.done[taskId];
+    SFX.uncheck();
+    toast(t("undone"), "↩️", 1200);
+  } else {
+    day.done[taskId] = {
+      at: new Date().toISOString(),
+      points: task.points || 0,
+      bonus: 0,
+      sec: null
+    };
+    SFX.check();
+    toast(t("earned", { n: task.points || 0 }), "✨", 1300);
+  }
+
+  const nowPerfect = isPerfect(key);
+  if (!wasPerfect && nowPerfect) {
+    onPerfectDay(key);
+  } else if (wasPerfect && !nowPerfect) {
+    toast(t("dayUnperfect"), "💫", 1400);
+  }
+
+  save();
+  checkAchievements();
+  render();
+}
+
+function onPerfectDay(key) {
+  SFX.star();
+  toast(t("dayPerfectToast"), "⭐", 2200);
+  setTimeout(() => FX.burst(70, { y: window.innerHeight * 0.25 }), 60);
+
+  // weekly completion?
+  const wk = weekKeyOf(fromKey(key));
+  const count = weekPerfectCount(wk);
+  if (count >= 7 && !S.weeks[wk]) {
+    setTimeout(() => {
+      SFX.reward();
+      FX.big();
+      toast(t("weekComplete"), "🎁", 3000);
+    }, 700);
+  }
+  // monthly completion?
+  const d = fromKey(key);
+  const mk = monthKeyOf(d);
+  if (monthPerfectCount(d.getFullYear(), d.getMonth()) >= S.settings.monthGoal && !S.months[mk]) {
+    setTimeout(() => {
+      SFX.reward();
+      FX.big();
+      toast(t("monthComplete"), "🏆", 3200);
+    }, 1100);
+  }
+}
+
+/* -------- Timers -------- */
+function startTimer(taskId) {
+  S.timers[taskId] = Date.now();
+  SFX.start();
+  save();
+  render();
+}
+function stopTimer(taskId) {
+  const started = S.timers[taskId];
+  if (!started) return;
+  const elapsed = (Date.now() - started) / 1000;
+  delete S.timers[taskId];
+
+  const task = S.tasks.find(x => x.id === taskId);
+  if (!task) { save(); render(); return; }
+
+  const key = todayKey();
+  const day = getDay(key, true);
+  const wasPerfect = isPerfect(key);
+
+  let bonus = 0;
+  const target = task.target || 900;
+  if (elapsed <= target) bonus = 1;
+
+  day.done[taskId] = {
+    at: new Date().toISOString(),
+    points: task.points || 0,
+    bonus: bonus,
+    sec: Math.round(elapsed)
+  };
+
+  if (bonus) {
+    SFX.check();
+    setTimeout(() => SFX.star(), 160);
+    toast(t("bonus"), "⚡", 1800);
+    const x = window.innerWidth / 2;
+    FX.star(x, window.innerHeight * 0.4);
+  } else {
+    SFX.check();
+    toast(t("earned", { n: task.points || 0 }), "✨", 1400);
+  }
+
+  if (!wasPerfect && isPerfect(key)) onPerfectDay(key);
+
+  save();
+  checkAchievements();
+  render();
+}
+
+/* -------- Shop -------- */
+function buyReward(id) {
+  const item = S.shop.find(x => x.id === id);
+  if (!item) return;
+  if (availablePoints() < item.cost) {
+    SFX.error();
+    toast(t("notEnough"), "😅", 1800);
+    return;
+  }
+  S.spentPoints += item.cost;
+  S.purchases.push({
+    id: item.id,
+    label: L(item.label),
+    icon: item.icon,
+    cost: item.cost,
+    at: new Date().toISOString()
+  });
+  SFX.reward();
+  FX.burst(60, { y: window.innerHeight * 0.4 });
+  toast(t("purchased", { n: L(item.label), c: item.cost }), item.icon, 2400);
+  save();
+  checkAchievements();
+  render();
+}
+
+/* -------- Claims -------- */
+function claimWeek(wk) {
+  if (weekPerfectCount(wk) < 7 || S.weeks[wk]) return;
+  S.weeks[wk] = { claimed: true, at: new Date().toISOString() };
+  SFX.reward();
+  FX.big();
+  save();
+  openModal(
+    '<div class="m-icon">🎁</div>' +
+    "<h2>" + esc(t("boxUnlocked")) + "</h2>" +
+    "<p>" + esc(LANG === "fr"
+      ? "Tu as eu 7 jours parfaits cette semaine. Tu as gagné ta boîte surprise ! Demande à un parent de te la donner 😄"
+      : "You got 7 perfect days this week. You earned your surprise box! Ask a grown-up for it 😄") + "</p>" +
+    '<div class="m-actions"><button class="btn primary block" data-action="close-modal">' + esc(t("close")) + "</button></div>"
+  );
+  render();
+}
+
+function claimMonth(mk) {
+  const parts = mk.split("-").map(Number);
+  const count = monthPerfectCount(parts[0], parts[1] - 1);
+  if (count < S.settings.monthGoal || S.months[mk]) return;
+  S.months[mk] = { claimed: true, at: new Date().toISOString() };
+  SFX.reward();
+  FX.big();
+  save();
+  openModal(
+    '<div class="m-icon">🏆</div>' +
+    "<h2>" + esc(t("monthUnlocked")) + "</h2>" +
+    "<p>" + esc(LANG === "fr"
+      ? "Objectif du mois atteint ! Tu as gagné le gros cadeau du mois. Bravo championne ! 🎉"
+      : "Monthly goal reached! You earned the big monthly prize. Well done champion! 🎉") + "</p>" +
+    '<div class="m-actions"><button class="btn gold block" data-action="close-modal">' + esc(t("close")) + "</button></div>"
+  );
+  render();
+}
+
+/* -------- Achievements -------- */
+function checkAchievements() {
+  const ctx = buildContext();
+  const newly = [];
+  ACHIEVEMENTS.forEach(a => {
+    if (S.achievements[a.id]) return;
+    let ok = false;
+    try { ok = !!a.test(ctx); } catch (e) { ok = false; }
+    if (ok) {
+      S.achievements[a.id] = new Date().toISOString();
+      newly.push(a);
+    }
+  });
+  if (newly.length) {
+    save();
+    newly.forEach((a, i) => {
+      setTimeout(() => {
+        SFX.star();
+        toast(t("newAchievement") + " " + L(a.name), a.icon, 2800);
+        FX.burst(45, { y: window.innerHeight * 0.22 });
+      }, i * 700);
+    });
+  }
+  // level up detection
+  const lv = levelInfo(totalEarned()).level;
+  if (S._lastLevel == null) S._lastLevel = lv;
+  else if (lv > S._lastLevel) {
+    S._lastLevel = lv;
+    setTimeout(() => {
+      SFX.levelUp();
+      FX.big();
+      toast(t("levelUp", { n: lv }), "🎉", 3000);
+    }, 400);
+  } else {
+    S._lastLevel = lv;
+  }
+}
+
+/* -------------------------------------------------------------------------
+   9. RENDERING — SHARED PIECES
+   ------------------------------------------------------------------------- */
+const RING_R = 52;
+const RING_C = 2 * Math.PI * RING_R;
+
+function ringSVG(pct) {
+  const off = RING_C * (1 - clamp(pct, 0, 1));
+  return (
+    '<svg class="ring" viewBox="0 0 120 120" aria-hidden="true">' +
+    '<circle class="ring-bg" cx="60" cy="60" r="' + RING_R + '"></circle>' +
+    '<circle class="ring-fg" cx="60" cy="60" r="' + RING_R + '" ' +
+    'stroke-dasharray="' + RING_C.toFixed(2) + '" ' +
+    'stroke-dashoffset="' + off.toFixed(2) + '"></circle>' +
+    "</svg>"
+  );
+}
+
+function heroHTML() {
+  const key = todayKey();
+  const tasks = activeTasks();
+  const done = dayDoneCount(key);
+  const total = tasks.length;
+  const pct = total ? done / total : 0;
+  const streak = currentStreak();
+  const pts = availablePoints();
+  const lv = levelInfo(totalEarned());
+  const perfect = isPerfect(key);
+
+  return (
+    '<section class="hero">' +
+      '<div class="hero-top">' +
+        '<div class="avatar">' + esc(S.child.avatar) + "</div>" +
+        "<div>" +
+          '<div class="hello">' + esc(t("hello")) + " " + esc(S.child.name) + " !</div>" +
+          '<div class="hello-sub">' + esc(fmtLongDate(new Date())) + "</div>" +
+        "</div>" +
+        '<div class="points-pill">⭐ ' + pts + "</div>" +
+      "</div>" +
+      '<div class="hero-body">' +
+        '<div class="ring-wrap">' +
+          ringSVG(pct) +
+          '<div class="ring-label"><b>' + done + "</b><span>/" + total + "</span></div>" +
+        "</div>" +
+        '<div class="hero-stats">' +
+          '<div class="hstat">🔥 <span class="big">' + streak + "</span> " + esc(t("streak")) + "</div>" +
+          '<div class="hstat">🎖️ ' + esc(t("level")) + ' <span class="big">' + lv.level + "</span></div>" +
+          '<div class="hstat">' + (perfect ? "⭐ " + esc(t("perfectDay")) : "💪 " + esc(t("keepGoing"))) + "</div>" +
+        "</div>" +
+      "</div>" +
+    "</section>"
+  );
+}
+
+function taskRowHTML(task, key) {
+  const day = S.days[key] || { done: {} };
+  const entry = day.done[task.id];
+  const isDone = !!entry;
+  const running = !!S.timers[task.id];
+  const isTimer = task.type === "timer";
+
+  let cls = "task";
+  if (isDone) cls += " done";
+  if (running) cls += " running";
+
+  let meta = '<span class="badge pts">+' + task.points + " " + esc(t("point")) + "</span>";
+
+  if (isTimer) {
+    const targetMin = Math.round((task.target || 900) / 60);
+    meta += '<span class="badge">⏱ ' + esc(t("target", { t: targetMin + " min" })) + "</span>";
+  }
+  if (task.id === "wake" && S.settings.wakeTarget) {
+    meta += '<span class="badge">🌅 ' + esc(t("wakeHint", { t: S.settings.wakeTarget })) + "</span>";
+  }
+  if (isDone && entry.sec) {
+    meta += '<span class="badge good">' + esc(t("tookTime", { t: fmtDuration(entry.sec) })) + "</span>";
+  }
+  if (isDone && entry.bonus) {
+    meta += '<span class="badge bonus">⚡ +' + entry.bonus + "</span>";
+  }
+
+  let right;
+  if (running) {
+    right = '<span class="t-timer" data-timer="' + task.id + '">0:00</span>';
+  } else {
+    right = '<span class="t-check">✓</span>';
+  }
+
+  return (
+    '<button class="' + cls + '" data-action="task" data-task="' + task.id + '" data-day="' + key + '">' +
+      '<span class="t-icon">' + esc(task.icon) + "</span>" +
+      '<span class="t-body">' +
+        '<span class="t-label">' + esc(L(task.label)) + "</span>" +
+        '<span class="t-meta">' + meta + "</span>" +
+      "</span>" +
+      right +
+    "</button>"
+  );
+}
+
+function dayCellHTML(date, opts) {
+  opts = opts || {};
+  const key = isoOf(date);
+  const perfect = isPerfect(key);
+  const done = dayDoneCount(key);
+  const total = activeTasks().length;
+  const isToday = key === todayKey();
+  const future = date > startOfDay(new Date());
+  const partial = !perfect && done > 0;
+
+  let cls = "day-cell";
+  if (perfect) cls += " perfect";
+  else if (partial) cls += " partial";
+  if (isToday) cls += " today";
+  if (future) cls += " future";
+
+  return (
+    '<button class="' + cls + '" data-action="goto-day" data-day="' + key + '">' +
+      '<div class="dname">' + esc(weekdayShort(date)) + "</div>" +
+      '<div class="dnum">' + date.getDate() + "</div>" +
+      '<div class="dstar">' + (perfect ? "⭐" : (partial ? "•" : "")) + "</div>" +
+      (partial ? '<span class="ddot"></span>' : "") +
+    "</button>"
+  );
+}
+
+/* -------------------------------------------------------------------------
+   10. VIEWS
+   ------------------------------------------------------------------------- */
+const VIEWS = {};
+
+/* ---------------- TODAY ---------------- */
+VIEWS.today = function () {
+  const key = todayKey();
+  const tasks = activeTasks();
+  const done = dayDoneCount(key);
+  const total = tasks.length;
+  const perfect = isPerfect(key);
+
+  let tasksHTML;
+  if (!tasks.length) {
+    tasksHTML =
+      '<div class="empty-state">' +
+        '<div class="e-icon">📝</div>' +
+        '<div class="e-text">' + esc(t("noTasks")) + "</div>" +
+        '<div class="small muted" style="margin-top:8px">' + esc(t("addTaskHint")) + "</div>" +
+      "</div>";
+  } else {
+    tasksHTML = '<div class="stagger">' + tasks.map(x => taskRowHTML(x, key)).join("") + "</div>";
+  }
+
+  const tips = [t("tip1"), t("tip2"), t("tip3")];
+  const tip = tips[new Date().getDate() % tips.length];
+
+  return (
+    '<div class="fade-in">' +
+      heroHTML() +
+
+      '<div class="card">' +
+        '<div class="card-title">' +
+          "<span>📋</span><span>" + esc(t("dayDone")) + "</span>" +
+          '<span class="spacer"></span>' +
+          '<span class="badge ' + (perfect ? "good" : "") + '">' + done + "/" + total + " " + esc(t("tasksOf")) + "</span>" +
+        "</div>" +
+        tasksHTML +
+      "</div>" +
+
+      (perfect
+        ? '<div class="card center" style="background:linear-gradient(120deg,rgba(255,201,60,.22),rgba(255,119,176,.12));border-color:rgba(255,170,0,.4)">' +
+            '<div style="font-size:42px;line-height:1">⭐</div>' +
+            '<div style="font-weight:900;margin-top:6px;font-size:16px">' + esc(t("perfectDay")) + "</div>" +
+            '<div class="small muted" style="margin-top:4px">' + esc(t("keepGoing")) + "</div>" +
+          "</div>"
+        : "") +
+
+      '<div class="card tight center small muted">💡 ' + esc(tip) + "</div>" +
+    "</div>"
+  );
+};
+
+/* ---------------- WEEK ---------------- */
+VIEWS.week = function () {
+  const monday = weekStart(new Date());
+  const wk = isoOf(monday);
+  const stars = weekPerfectCount(wk);
+  const goal = 7;
+  const claimed = !!S.weeks[wk];
+  const unlocked = stars >= goal;
+
+  const days = [];
+  for (let i = 0; i < 7; i++) days.push(addDays(monday, i));
+
+  const earnedWeek = days.reduce((sum, d) => sum + dayEarned(isoOf(d)), 0);
+
+  let boxHTML;
+  if (claimed) {
+    boxHTML =
+      '<div class="reward unlocked">' +
+        '<div class="r-icon">🎉</div>' +
+        '<div class="r-body">' +
+          '<div class="r-name">' + esc(t("boxClaimed")) + "</div>" +
+          '<div class="r-desc">' + esc(t("weekComplete")) + "</div>" +
+        "</div>" +
+      "</div>";
+  } else if (unlocked) {
+    boxHTML =
+      '<div class="reward unlocked">' +
+        '<div class="r-icon">🎁</div>' +
+        '<div class="r-body">' +
+          '<div class="r-name">' + esc(t("theBox")) + "</div>" +
+          '<div class="r-desc">' + esc(t("boxUnlocked")) + "</div>" +
+        "</div>" +
+      "</div>" +
+      '<button class="btn gold block" data-action="claim-week" data-week="' + wk + '">🎁 ' + esc(t("openBox")) + "</button>";
+  } else {
+    boxHTML =
+      '<div class="reward locked">' +
+        '<div class="r-icon">🔒</div>' +
+        '<div class="r-body">' +
+          '<div class="r-name">' + esc(t("theBox")) + "</div>" +
+          '<div class="r-desc">' + esc(t("boxLocked", { n: goal - stars })) + "</div>" +
+        "</div>" +
+      "</div>";
+  }
+
+  return (
+    '<div class="fade-in">' +
+      '<div class="card">' +
+        '<div class="card-title"><span>📅</span><span>' + esc(t("weekProgress")) + "</span></div>" +
+        '<div class="week-grid stagger">' + days.map(d => dayCellHTML(d)).join("") + "</div>" +
+        '<div class="divider"></div>' +
+        '<div class="bar-label"><span>' + esc(t("perfectDays")) + "</span><span>" + stars + " / " + goal + "</span></div>" +
+        '<div class="bar gold"><i style="width:' + ((stars / goal) * 100) + '%"></i></div>' +
+        '<div class="small muted center" style="margin-top:10px">⭐ ' + earnedWeek + " " + esc(t("points")) + " " + (LANG === "fr" ? "cette semaine" : "this week") + "</div>" +
+      "</div>" +
+
+      '<div class="card">' +
+        '<div class="card-title"><span>🎁</span><span>' + esc(t("theBox")) + "</span></div>" +
+        boxHTML +
+      "</div>" +
+
+      '<div class="card tight">' +
+        '<div class="row wrap" style="gap:8px">' +
+          '<span class="pill">🔥 ' + currentStreak() + " " + esc(t("streak")) + "</span>" +
+          '<span class="pill">🏅 ' + bestStreak() + " " + (LANG === "fr" ? "record" : "record") + "</span>" +
+          '<span class="pill">🎁 ' + countPerfectWeeks() + " " + esc(t("perfectWeeks")) + "</span>" +
+        "</div>" +
+      "</div>" +
+    "</div>"
+  );
+};
+
+/* ---------------- MONTH ---------------- */
+VIEWS.month = function () {
+  const now = new Date();
+  const y = now.getFullYear();
+  const m = now.getMonth();
+  const mk = y + "-" + pad2(m + 1);
+  const goal = S.settings.monthGoal;
+  const count = monthPerfectCount(y, m);
+  const claimed = !!S.months[mk];
+  const unlocked = count >= goal;
+
+  const monthName = new Date(y, m, 1).toLocaleDateString(localeCode(), { month: "long", year: "numeric" });
+  const firstDay = new Date(y, m, 1);
+  const lastDay = new Date(y, m + 1, 0).getDate();
+  const startPad = (firstDay.getDay() + 6) % 7; // Monday-first
+
+  const wdNames = [];
+  for (let i = 0; i < 7; i++) {
+    const d = addDays(weekStart(now), i);
+    wdNames.push('<div class="wd">' + esc(weekdayShort(d).slice(0, 3)) + "</div>");
+  }
+
+  let cells = "";
+  for (let i = 0; i < startPad; i++) cells += '<div class="cell empty"></div>';
+  for (let d = 1; d <= lastDay; d++) {
+    const date = new Date(y, m, d);
+    const key = isoOf(date);
+    const perfect = isPerfect(key);
+    const done = dayDoneCount(key);
+    const isToday = key === todayKey();
+    const future = date > startOfDay(new Date());
+    let cls = "cell";
+    if (perfect) cls += " perfect";
+    else if (done > 0) cls += " partial";
+    if (isToday) cls += " today";
+    if (future) cls += " future";
+    cells += '<button class="' + cls + '" data-action="goto-day" data-day="' + key + '">' + d + "</button>";
+  }
+
+  let prize;
+  if (claimed) {
+    prize =
+      '<div class="reward unlocked">' +
+        '<div class="r-icon">🏆</div>' +
+        '<div class="r-body">' +
+          '<div class="r-name">' + esc(t("claimed")) + "</div>" +
+          '<div class="r-desc">' + esc(t("monthUnlocked")) + "</div>" +
+        "</div>" +
+      "</div>";
+  } else if (unlocked) {
+    prize =
+      '<div class="reward unlocked">' +
+        '<div class="r-icon">🏆</div>' +
+        '<div class="r-body">' +
+          '<div class="r-name">' + esc(t("monthlyPrize")) + "</div>" +
+          '<div class="r-desc">' + esc(t("monthUnlocked")) + "</div>" +
+        "</div>" +
+      "</div>" +
+      '<button class="btn gold block" data-action="claim-month" data-month="' + mk + '">🏆 ' + esc(t("claim")) + "</button>";
+  } else {
+    prize =
+      '<div class="reward locked">' +
+        '<div class="r-icon">🔒</div>' +
+        '<div class="r-body">' +
+          '<div class="r-name">' + esc(t("monthlyPrize")) + "</div>" +
+          '<div class="r-desc">' + esc(t("monthLocked", { n: Math.max(0, goal - count) })) + "</div>" +
+        "</div>" +
+      "</div>";
+  }
+
+  return (
+    '<div class="fade-in">' +
+      '<div class="card">' +
+        '<div class="card-title"><span>🗓️</span><span style="text-transform:capitalize">' + esc(monthName) + "</span></div>" +
+        '<div class="cal">' + wdNames.join("") + cells + "</div>" +
+      "</div>" +
+
+      '<div class="card">' +
+        '<div class="card-title"><span>🎯</span><span>' + esc(t("monthProgress")) + "</span></div>" +
+        '<div class="bar-label"><span>' + esc(t("perfectDays")) + "</span><span>" + count + " / " + goal + "</span></div>" +
+        '<div class="bar green"><i style="width:' + clamp((count / goal) * 100, 0, 100) + '%"></i></div>' +
+        '<div class="divider"></div>' +
+        prize +
+      "</div>" +
+    "</div>"
+  );
+};
+
+/* ---------------- REWARDS ---------------- */
+VIEWS.rewards = function () {
+  const pts = availablePoints();
+  const earned = totalEarned();
+  const lv = levelInfo(earned);
+
+  const shopHTML = S.shop.map(item => {
+    const can = pts >= item.cost;
+    return (
+      '<div class="reward ' + (can ? "" : "locked") + '">' +
+        '<div class="r-icon">' + esc(item.icon) + "</div>" +
+        '<div class="r-body">' +
+          '<div class="r-name">' + esc(L(item.label)) + "</div>" +
+          '<div class="r-desc">' + item.cost + " " + esc(t("points")) + "</div>" +
+        "</div>" +
+        '<button class="btn sm ' + (can ? "primary" : "ghost") + '" data-action="buy" data-id="' + item.id + '" ' + (can ? "" : "disabled") + ">" +
+          esc(t("buy")) +
+        "</button>" +
+      "</div>"
+    );
+  }).join("");
+
+  const achHTML = ACHIEVEMENTS.map(a => {
+    const got = !!S.achievements[a.id];
+    return (
+      '<div class="ach ' + (got ? "unlocked" : "locked") + '">' +
+        '<div class="a-icon">' + a.icon + "</div>" +
+        '<div class="a-name">' + esc(L(a.name)) + "</div>" +
+        '<div class="a-desc">' + esc(L(a.desc)) + "</div>" +
+      "</div>"
+    );
+  }).join("");
+
+  const unlockedCount = Object.keys(S.achievements).length;
+
+  return (
+    '<div class="fade-in">' +
+      '<div class="card">' +
+        '<div class="level-box">' +
+          '<div class="level-badge">' + lv.level + "</div>" +
+          '<div class="grow">' +
+            '<div style="font-weight:900;font-size:15px">' + esc(t("level")) + " " + lv.level + "</div>" +
+            '<div class="small muted" style="margin:4px 0 7px">' + esc(t("xpToNext", { a: lv.into, b: lv.span })) + "</div>" +
+            '<div class="bar"><i style="width:' + (lv.pct * 100) + '%"></i></div>' +
+          "</div>" +
+        "</div>" +
+        '<div class="row wrap" style="gap:8px">' +
+          '<span class="pill">⭐ ' + pts + " " + esc(t("availablePoints")) + "</span>" +
+          '<span class="pill">📈 ' + earned + " " + esc(t("totalPoints")) + "</span>" +
+        "</div>" +
+      "</div>" +
+
+      '<div class="card">' +
+        '<div class="card-title"><span>🛍️</span><span>' + esc(t("shop")) + "</span></div>" +
+        shopHTML +
+      "</div>" +
+
+      '<div class="card">' +
+        '<div class="card-title">' +
+          "<span>🏆</span><span>" + esc(t("achievements")) + "</span>" +
+          '<span class="spacer"></span>' +
+          '<span class="badge">' + unlockedCount + " / " + ACHIEVEMENTS.length + "</span>" +
+        "</div>" +
+        '<div class="ach-grid stagger">' + achHTML + "</div>" +
+      "</div>" +
+    "</div>"
+  );
+};
+
+/* ---------------- SETTINGS ---------------- */
+VIEWS.settings = function () {
+  const avatarOpts = AVATARS.map(a =>
+    '<button class="avatar-opt ' + (S.child.avatar === a ? "sel" : "") + '" data-action="set-avatar" data-v="' + a + '">' + a + "</button>"
+  ).join("");
+
+  const themePills = THEMES.map(th =>
+    '<button class="pill ' + (S.theme === th ? "on" : "") + '" data-action="set-theme" data-v="' + th + '">' +
+      ({ candy: "🍬 Candy", ocean: "🌊 Ocean", forest: "🌲 Forest", night: "🌙 Night" }[th]) +
+    "</button>"
+  ).join("");
+
+  const tasksHTML = S.tasks.map(task =>
+    '<div class="row" style="padding:9px 0;border-bottom:1px solid var(--line)">' +
+      '<span style="font-size:22px">' + esc(task.icon) + "</span>" +
+      '<span class="grow" style="font-weight:700;font-size:14px">' + esc(L(task.label)) + "</span>" +
+      '<span class="badge pts">' + task.points + "</span>" +
+      '<button class="btn xs ghost" data-action="toggle-task-active" data-id="' + task.id + '" title="Activer/Désactiver">' +
+        (task.active === false ? "🚫" : "✅") +
+      "</button>" +
+      '<button class="btn xs danger" data-action="delete-task" data-id="' + task.id + '">✕</button>' +
+    "</div>"
+  ).join("");
+
+  return (
+    '<div class="fade-in">' +
+      '<div class="card">' +
+        '<div class="card-title"><span>👧</span><span>' + esc(t("childName")) + "</span></div>" +
+        '<div class="field">' +
+          '<input class="input" data-field="name" value="' + esc(S.child.name) + '" maxlength="20" />' +
+        "</div>" +
+        '<div class="field" style="margin-bottom:0">' +
+          "<label>" + esc(t("avatar")) + "</label>" +
+          '<div class="avatar-picker">' + avatarOpts + "</div>" +
+        "</div>" +
+      "</div>" +
+
+      '<div class="card">' +
+        '<div class="card-title"><span>⚙️</span><span>' + esc(t("settings")) + "</span></div>" +
+        '<div class="field">' +
+          "<label>" + esc(t("wakeTarget")) + "</label>" +
+          '<input class="input" type="time" data-field="wakeTarget" value="' + esc(S.settings.wakeTarget) + '" />' +
+        "</div>" +
+        '<div class="field">' +
+          "<label>" + esc(t("weekGoal")) + "</label>" +
+          '<input class="input" type="number" min="1" max="7" data-field="weekGoal" value="' + S.settings.weekGoal + '" />' +
+        "</div>" +
+        '<div class="field" style="margin-bottom:0">' +
+          "<label>" + esc(t("monthGoal")) + "</label>" +
+          '<input class="input" type="number" min="1" max="31" data-field="monthGoal" value="' + S.settings.monthGoal + '" />' +
+        "</div>" +
+      "</div>" +
+
+      '<div class="card">' +
+        '<div class="card-title"><span>🎨</span><span>' + esc(t("theme")) + "</span></div>" +
+        '<div class="pill-row">' + themePills + "</div>" +
+        '<div class="divider"></div>' +
+        '<div class="switch-row">' +
+          "<div>" +
+            '<div class="sw-label">🔊 ' + esc(t("sound")) + "</div>" +
+          "</div>" +
+          '<button class="switch ' + (S.settings.sound ? "on" : "") + '" data-action="toggle-sound" aria-label="sound"></button>' +
+        "</div>" +
+        '<div class="switch-row">' +
+          "<div>" +
+            '<div class="sw-label">🌍 ' + esc(t("language")) + "</div>" +
+          "</div>" +
+          '<div class="pill-row">' +
+            '<button class="pill ' + (LANG === "fr" ? "on" : "") + '" data-action="set-lang" data-v="fr">Français</button>' +
+            '<button class="pill ' + (LANG === "en" ? "on" : "") + '" data-action="set-lang" data-v="en">English</button>' +
+          "</div>" +
+        "</div>" +
+      "</div>" +
+
+      '<div class="card">' +
+        '<div class="card-title"><span>📝</span><span>' + esc(t("tasksList")) + "</span></div>" +
+        tasksHTML +
+        '<div class="divider"></div>' +
+        '<button class="btn primary block" data-action="add-task">➕ ' + esc(t("addTask")) + "</button>" +
+      "</div>" +
+
+      '<div class="card">' +
+        '<div class="card-title"><span>💾</span><span>' + esc(t("dataMgmt")) + "</span></div>" +
+        '<button class="btn block" style="margin-bottom:9px" data-action="export">📤 ' + esc(t("exportData")) + "</button>" +
+        '<button class="btn block" style="margin-bottom:9px" data-action="import">📥 ' + esc(t("importData")) + "</button>" +
+        '<button class="btn danger block" data-action="reset">🗑️ ' + esc(t("resetAll")) + "</button>" +
+        '<input type="file" id="import-file" accept="application/json" class="hidden" />' +
+      "</div>" +
+
+      '<div class="card tight center small muted">' +
+        "Version 1.0 · " + esc(t("appName")) +
+      "</div>" +
+    "</div>"
+  );
+};
+
+/* -------------------------------------------------------------------------
+   11. RENDER ENGINE
+   ------------------------------------------------------------------------- */
+let VIEW = "today";
+
+function render() {
+  document.documentElement.setAttribute("data-theme", S.theme);
+  document.documentElement.setAttribute("lang", LANG);
+
+  $("#brand-name").textContent = S.child.name ? S.child.name : t("appName");
+
+  const view = $("#view");
+  view.innerHTML = VIEWS[VIEW] ? VIEWS[VIEW]() : VIEWS.today();
+
+  renderTabbar();
+  updateTimerDisplays();
+}
+
+function renderTabbar() {
+  const tabs = [
+    { id: "today",    icon: "☀️", label: t("today"),    badge: false },
+    { id: "week",     icon: "📅", label: t("week"),     badge: isPerfect(todayKey()) === false && weekPerfectCount(weekKeyOf(new Date())) >= 7 && !S.weeks[weekKeyOf(new Date())] },
+    { id: "month",    icon: "🗓️", label: t("month"),    badge: false },
+    { id: "rewards",  icon: "🏆", label: t("rewards"),  badge: false },
+    { id: "settings", icon: "⚙️", label: t("settings"), badge: false }
+  ];
+  $("#tabbar").innerHTML = tabs.map(tb =>
+    '<button class="tab ' + (VIEW === tb.id ? "active" : "") + '" data-action="tab" data-v="' + tb.id + '">' +
+      (tb.badge ? '<span class="dot"></span>' : "") +
+      '<span class="ti">' + tb.icon + "</span>" +
+      "<span>" + esc(tb.label) + "</span>" +
+    "</button>"
+  ).join("");
+}
+
+/* -------------------------------------------------------------------------
+   12. TIMER TICK LOOP
+   ------------------------------------------------------------------------- */
+function updateTimerDisplays() {
+  const ids = Object.keys(S.timers);
+  if (!ids.length) return;
+  ids.forEach(id => {
+    const el = document.querySelector('[data-timer="' + id + '"]');
+    if (!el) return;
+    const elapsed = (Date.now() - S.timers[id]) / 1000;
+    el.textContent = fmtDuration(elapsed);
+    const task = S.tasks.find(x => x.id === id);
+    const target = task && task.target ? task.target : 900;
+    const row = el.closest(".task");
+    if (row) {
+      if (elapsed > target) row.classList.add("over");
+      else row.classList.remove("over");
+    }
+  });
+}
+setInterval(updateTimerDisplays, 500);
+
+/* -------------------------------------------------------------------------
+   13. EVENT DELEGATION
+   ------------------------------------------------------------------------- */
+document.addEventListener("click", function (e) {
+  const el = e.target.closest("[data-action]");
+  if (!el) return;
+  const action = el.dataset.action;
+
+  switch (action) {
+    case "tab": {
+      const v = el.dataset.v;
+      if (VIEWS[v]) {
+        VIEW = v;
+        render();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+      break;
+    }
+
+    case "task": {
+      const taskId = el.dataset.task;
+      const dayKey = el.dataset.day || todayKey();
+      const task = S.tasks.find(x => x.id === taskId);
+      if (!task) break;
+
+      if (task.type === "timer") {
+        if (S.timers[taskId]) {
+          stopTimer(taskId);
+        } else if (S.days[dayKey] && S.days[dayKey].done[taskId]) {
+          toggleTask(taskId, dayKey);
+        } else {
+          startTimer(taskId);
+          render();
+        }
+      } else {
+        toggleTask(taskId, dayKey);
+      }
+      break;
+    }
+
+    case "goto-day": {
+      const key = el.dataset.day;
+      openDayDetail(key);
+      break;
+    }
+
+    case "claim-week":
+      claimWeek(el.dataset.week);
+      break;
+
+    case "claim-month":
+      claimMonth(el.dataset.month);
+      break;
+
+    case "buy":
+      buyReward(el.dataset.id);
+      break;
+
+    case "cycle-theme": {
+      const idx = (THEMES.indexOf(S.theme) + 1) % THEMES.length;
+      S.theme = THEMES[idx];
+      save();
+      render();
+      break;
+    }
+
+    case "set-theme":
+      S.theme = el.dataset.v;
+      save();
+      render();
+      break;
+
+    case "toggle-lang": {
+      LANG = LANG === "fr" ? "en" : "fr";
+      S.lang = LANG;
+      save();
+      render();
+      break;
+    }
+
+    case "set-lang":
+      LANG = el.dataset.v;
+      S.lang = LANG;
+      save();
+      render();
+      break;
+
+    case "set-avatar":
+      S.child.avatar = el.dataset.v;
+      SFX.check();
+      save();
+      render();
+      break;
+
+    case "toggle-sound":
+      S.settings.sound = !S.settings.sound;
+      save();
+      if (S.settings.sound) SFX.check();
+      render();
+      break;
+
+    case "toggle-task-active": {
+      const task = S.tasks.find(x => x.id === el.dataset.id);
+      if (task) {
+        task.active = task.active === false;
+        save();
+        render();
+      }
+      break;
+    }
+
+    case "delete-task": {
+      const id = el.dataset.id;
+      S.tasks = S.tasks.filter(x => x.id !== id);
+      save();
+      render();
+      break;
+    }
+
+    case "add-task":
+      openAddTaskModal();
+      break;
+
+    case "export":
+      exportData();
+      break;
+
+    case "import":
+      $("#import-file") && $("#import-file").click();
+      break;
+
+    case "reset":
+      openResetModal();
+      break;
+
+    case "close-modal":
+      closeModal();
+      break;
+
+    case "save-task-modal": {
+      const nameInput = $("#new-task-name");
+      const ptsInput = $("#new-task-points");
+      const kindInput = $("#new-task-kind");
+      const minInput = $("#new-task-target");
+      const iconInput = $("#new-task-icon");
+      if (!nameInput) break;
+      const name = nameInput.value.trim();
+      if (!name) { toast("⚠️ " + t("taskName"), "⚠️", 1500); break; }
+      const pts = clamp(parseInt(ptsInput.value, 10) || 1, 1, 10);
+      const kind = kindInput.value;
+      const mins = clamp(parseInt(minInput.value, 10) || 10, 1, 120);
+      const icon = (iconInput.value || "✅").trim().slice(0, 3);
+      S.tasks.push({
+        id: "t" + uid(),
+        icon: icon,
+        label: { fr: name, en: name },
+        points: pts,
+        type: kind,
+        target: mins * 60,
+        active: true
+      });
+      save();
+      closeModal();
+      render();
+      toast(t("save") + " ✓", "✅", 1400);
+      break;
+    }
+
+    case "confirm-reset":
+      localStorage.removeItem(LS_KEY);
+      S = defaultState();
+      LANG = S.lang;
+      save();
+      closeModal();
+      render();
+      toast("🧹 " + t("resetAll"), "🧹", 1800);
+      break;
+
+    case "welcome-close":
+      S.seenWelcome = true;
+      save();
+      closeModal();
+      render();
+      break;
+  }
+});
+
+/* ---------- Live input handling ---------- */
+document.addEventListener("input", function (e) {
+  const el = e.target.closest("[data-field]");
+  if (!el) return;
+  const f = el.dataset.field;
+
+  if (f === "name") {
+    S.child.name = el.value.slice(0, 20);
+    $("#brand-name").textContent = S.child.name || t("appName");
+    save();
+  } else if (f === "wakeTarget") {
+    S.settings.wakeTarget = el.value;
+    save();
+  } else if (f === "weekGoal") {
+    S.settings.weekGoal = clamp(parseInt(el.value, 10) || 7, 1, 7);
+    save();
+  } else if (f === "monthGoal") {
+    S.settings.monthGoal = clamp(parseInt(el.value, 10) || 26, 1, 31);
+    save();
+  }
+});
+
+/* ---------- Import file ---------- */
+document.addEventListener("change", function (e) {
+  if (e.target.id !== "import-file") return;
+  const file = e.target.files && e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function (ev) {
+    try {
+      const data = JSON.parse(ev.target.result);
+      S = migrate(data);
+      LANG = S.lang || "fr";
+      save();
+      render();
+      toast("📥 " + t("importData") + " ✓", "✅", 1800);
+    } catch (err) {
+      toast("❌ " + (LANG === "fr" ? "Fichier invalide" : "Invalid file"), "❌", 2000);
+    }
+  };
+  reader.readAsText(file);
+  e.target.value = "";
+});
+
+/* -------------------------------------------------------------------------
+   14. DAY DETAIL MODAL
+   ------------------------------------------------------------------------- */
+function openDayDetail(key) {
+  const date = fromKey(key);
+  const tasks = activeTasks();
+  const done = dayDoneCount(key);
+  const earned = dayEarned(key);
+  const perfect = isPerfect(key);
+
+  const rows = tasks.map(task => {
+    const day = S.days[key] || { done: {} };
+    const d = day.done[task.id];
+    const isDone = !!d;
+    return (
+      '<div class="row" style="padding:9px 0;border-bottom:1px solid var(--line);text-align:left">' +
+        '<span style="font-size:20px">' + esc(task.icon) + "</span>" +
+        '<span class="grow" style="font-weight:700;font-size:14px;' + (isDone ? "opacity:.55;text-decoration:line-through" : "") + '">' +
+          esc(L(task.label)) +
+        "</span>" +
+        (isDone
+          ? '<span class="badge good">✓ +' + ((d.points || 0) + (d.bonus || 0)) + "</span>"
+          : '<span class="badge">—</span>") +
+      "</div>"
+    );
+  }).join("");
+
+  openModal(
+    '<div class="m-icon">' + (perfect ? "⭐" : "📅") + "</div>" +
+    "<h2 style='text-transform:capitalize'>" + esc(fmtLongDate(date)) + "</h2>" +
+    "<p>" + done + "/" + tasks.length + " " + esc(t("tasksDone")) + " · ⭐ " + earned + " " + esc(t("points")) + "</p>" +
+    '<div class="divider"></div>' +
+    '<div style="text-align:left">' + rows + "</div>" +
+    '<div class="m-actions">' +
+      '<button class="btn ghost" data-action="close-modal">' + esc(t("close")) + "</button>" +
+    "</div>"
+  );
+}
+
+/* -------------------------------------------------------------------------
+   15. ADD TASK MODAL
+   ------------------------------------------------------------------------- */
+function openAddTaskModal() {
+  openModal(
+    '<div class="m-icon">➕</div>' +
+    "<h2>" + esc(t("addTask")) + "</h2>" +
+    '<div style="text-align:left;margin-top:16px">' +
+      '<div class="field">' +
+        "<label>" + esc(t("taskName")) + "</label>" +
+        '<input class="input" id="new-task-name" maxlength="30" placeholder="' + esc(LANG === "fr" ? "Ex: Ranger ses chaussures" : "e.g. Put shoes away") + '" />' +
+      "</div>" +
+      '<div class="field">' +
+        "<label>" + esc(t("avatar")) + "</label>" +
+        '<input class="input" id="new-task-icon" maxlength="3" value="✅" />' +
+      "</div>" +
+      '<div class="field">' +
+        "<label>" + esc(t("taskPoints")) + "</label>" +
+        '<input class="input" id="new-task-points" type="number" min="1" max="10" value="1" />' +
+      "</div>" +
+      '<div class="field">' +
+        "<label>" + esc(t("taskKind")) + "</label>" +
+        '<select class="select" id="new-task-kind">' +
+          '<option value="check">' + esc(t("kindCheck")) + "</option>" +
+          '<option value="timer">' + esc(t("kindTimer")) + "</option>" +
+        "</select>" +
+      "</div>" +
+      '<div class="field">' +
+        "<label>" + esc(t("targetMin")) + "</label>" +
+        '<input class="input" id="new-task-target" type="number" min="1" max="120" value="10" />' +
+      "</div>" +
+    "</div>" +
+    '<div class="m-actions">' +
+      '<button class="btn ghost" data-action="close-modal">' + esc(t("cancel")) + "</button>" +
+      '<button class="btn primary" data-action="save-task-modal">' + esc(t("save")) + "</button>" +
+    "</div>"
+  );
+  setTimeout(() => {
+    const el = $("#new-task-name");
+    if (el) el.focus();
+  }, 320);
+}
+
+/* -------------------------------------------------------------------------
+   16. RESET MODAL
+   ------------------------------------------------------------------------- */
+function openResetModal() {
+  openModal(
+    '<div class="m-icon">🗑️</div>' +
+    "<h2>" + esc(t("resetAll")) + "</h2>" +
+    "<p>" + esc(t("resetConfirm")) + "</p>" +
+    '<div class="m-actions">' +
+      '<button class="btn ghost" data-action="close-modal">' + esc(t("cancel")) + "</button>" +
+      '<button class="btn danger" data-action="confirm-reset">' + esc(t("yes")) + "</button>" +
+    "</div>"
+  );
+}
+
+/* -------------------------------------------------------------------------
+   17. EXPORT
+   ------------------------------------------------------------------------- */
+function exportData() {
+  try {
+    const blob = new Blob([JSON.stringify(S, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "ma-semaine-sauvegarde-" + todayKey() + ".json";
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => {
+      URL.revokeObjectURL(url);
+      a.remove();
+    }, 400);
+    toast("📤 " + t("exportData"), "✅", 1800);
+  } catch (e) {
+    toast("❌ Export", "❌", 1800);
+  }
+}
+
+/* -------------------------------------------------------------------------
+   18. WELCOME
+   ------------------------------------------------------------------------- */
+function showWelcomeIfNeeded() {
+  if (S.seenWelcome) return;
+  openModal(
+    '<div class="m-icon">' + esc(S.child.avatar) + "</div>" +
+    "<h2>" + esc(t("welcomeTitle")) + "</h2>" +
+    "<p>" + esc(t("welcomeText")) + "</p>" +
+    '<div class="m-actions">' +
+      '<button class="btn primary block" data-action="welcome-close">🚀 ' + esc(t("letsGo")) + "</button>" +
+    "</div>"
+  );
+}
+
+/* -------------------------------------------------------------------------
+   19. BOOT
+   ------------------------------------------------------------------------- */
+function boot() {
+  const had = load();
+  LANG = S.lang || "fr";
+  if (!had) {
+    S = defaultState();
+    LANG = "fr";
+    save();
+  }
+  // seed level tracker
+  S._lastLevel = levelInfo(totalEarned()).level;
+
+  render();
+  checkAchievements();
+
+  if (!had) {
+    setTimeout(showWelcomeIfNeeded, 500);
+  }
+
+  // Unlock audio on first interaction (mobile browsers)
+  const unlock = () => {
+    ensureAudio();
+    document.removeEventListener("touchstart", unlock);
+    document.removeEventListener("click", unlock);
+  };
+  document.addEventListener("touchstart", unlock, { passive: true });
+  document.addEventListener("click", unlock);
+
+  // Refresh the "today" view at midnight-ish
+  setInterval(() => {
+    if (VIEW === "today" || VIEW === "week") {
+      const key = todayKey();
+      if (boot._lastDay && boot._lastDay !== key) {
+        boot._lastDay = key;
+        render();
+      }
+      boot._lastDay = key;
+    }
+  }, 60000);
+  boot._lastDay = todayKey();
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", boot);
+} else {
+  boot();
+}
+</script>
+</body>
+</html>
